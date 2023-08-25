@@ -45,7 +45,7 @@ public class WeatherForecastController : ControllerBase
         sw.Start();
         
         // TODO: Hent resultater
-        
+         
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
     }
