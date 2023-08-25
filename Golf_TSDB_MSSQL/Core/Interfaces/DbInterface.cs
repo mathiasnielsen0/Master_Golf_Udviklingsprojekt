@@ -4,5 +4,5 @@ namespace Core.Interfaces;
 
 public interface IDatabase
 {
-    Task<PriceQueryModel> GetPrices(DateTime fra, DateTime til, string productCode);
+    Task<List<PriceQueryModel>> GetPrices(DateTime fra, DateTime til, string productCode);
 }
