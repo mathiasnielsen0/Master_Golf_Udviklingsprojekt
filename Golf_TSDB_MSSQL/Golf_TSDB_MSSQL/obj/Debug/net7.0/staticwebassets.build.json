@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "DiYo1/JkiM7LMRRkzGkvyfmnCcraxEXJKXYJgtra+vg=",
+  "Source": "Golf_TSDB_MSSQL",
+  "BasePath": "_content/Golf_TSDB_MSSQL",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

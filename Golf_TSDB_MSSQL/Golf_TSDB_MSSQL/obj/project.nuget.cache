@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "w9qLNycCjetLNUU9f9SMgtnTBLnbJLm1ztTKl8tx3eKwHn1juRWjpqd5qA9jge20prLtP1fzWMLWOmXgHHbmWQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mni\\source\\repos\\Master - AU\\Projektfag\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\MathiasNielsen\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
