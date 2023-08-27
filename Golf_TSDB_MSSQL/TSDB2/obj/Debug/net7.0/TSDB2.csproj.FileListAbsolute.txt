@@ -1,0 +1,15 @@
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\bin\Debug\net7.0\TSDB2.deps.json
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\bin\Debug\net7.0\TSDB2.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\bin\Debug\net7.0\TSDB2.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\bin\Debug\net7.0\Core.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\bin\Debug\net7.0\Core.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.csproj.AssemblyReference.cache
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.AssemblyInfoInputs.cache
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.AssemblyInfo.cs
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.csproj.CoreCompileInputs.cache
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.csproj.CopyComplete
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\refint\TSDB2.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\TSDB2.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TSDB2\obj\Debug\net7.0\ref\TSDB2.dll
