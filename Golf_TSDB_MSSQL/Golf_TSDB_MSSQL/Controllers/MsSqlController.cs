@@ -20,10 +20,12 @@ public class MsSqlController : ControllerBase
     {
         var sw = new Stopwatch();
         sw.Start();
+
+        var startDate = new DateTime(2014, 12, 1);
         
         // TODO: Hent resultater
         var results = _myDbContext.HoldingsInAccounts
-            .Take(1000)
+            .Where(x => x.NavDate > startDate && x.NavDate < startDate.AddMonths(1))
             .ToList();
         
         var ellapsed = sw.ElapsedMilliseconds;
