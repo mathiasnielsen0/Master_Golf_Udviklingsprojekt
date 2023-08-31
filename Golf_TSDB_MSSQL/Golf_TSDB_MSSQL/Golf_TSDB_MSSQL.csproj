@@ -15,8 +15,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\MSSQL\MSSQL.csproj" />
-      <ProjectReference Include="..\TSDB1\TSDB1.csproj" />
-      <ProjectReference Include="..\TSDB2\TSDB2.csproj" />
+      <ProjectReference Include="..\InfluxDB\InfluxDB.csproj" />
+      <ProjectReference Include="..\PrometheusDB\PrometheusDB.csproj" />
     </ItemGroup>
 
 </Project>

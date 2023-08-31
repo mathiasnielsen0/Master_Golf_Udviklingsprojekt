@@ -1178,6 +1178,19 @@
           "bin/placeholder/Core.dll": {}
         }
       },
+      "InfluxDB/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/InfluxDB.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/InfluxDB.dll": {}
+        }
+      },
       "MSSQL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1194,30 +1207,17 @@
           "bin/placeholder/MSSQL.dll": {}
         }
       },
-      "TSDB1/1.0.0": {
+      "PrometheusDB/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Core": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/TSDB1.dll": {}
+          "bin/placeholder/PrometheusDB.dll": {}
         },
         "runtime": {
-          "bin/placeholder/TSDB1.dll": {}
-        }
-      },
-      "TSDB2/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "Core": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/TSDB2.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/TSDB2.dll": {}
+          "bin/placeholder/PrometheusDB.dll": {}
         }
       }
     }
@@ -3740,31 +3740,31 @@
       "path": "../Core/Core.csproj",
       "msbuildProject": "../Core/Core.csproj"
     },
+    "InfluxDB/1.0.0": {
+      "type": "project",
+      "path": "../InfluxDB/InfluxDB.csproj",
+      "msbuildProject": "../InfluxDB/InfluxDB.csproj"
+    },
     "MSSQL/1.0.0": {
       "type": "project",
       "path": "../MSSQL/MSSQL.csproj",
       "msbuildProject": "../MSSQL/MSSQL.csproj"
     },
-    "TSDB1/1.0.0": {
+    "PrometheusDB/1.0.0": {
       "type": "project",
-      "path": "../TSDB1/TSDB1.csproj",
-      "msbuildProject": "../TSDB1/TSDB1.csproj"
-    },
-    "TSDB2/1.0.0": {
-      "type": "project",
-      "path": "../TSDB2/TSDB2.csproj",
-      "msbuildProject": "../TSDB2/TSDB2.csproj"
+      "path": "../PrometheusDB/PrometheusDB.csproj",
+      "msbuildProject": "../PrometheusDB/PrometheusDB.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Core >= 1.0.0",
+      "InfluxDB >= 1.0.0",
       "MSSQL >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.10",
+      "PrometheusDB >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0",
-      "System.Configuration.ConfigurationManager >= 7.0.0",
-      "TSDB1 >= 1.0.0",
-      "TSDB2 >= 1.0.0"
+      "System.Configuration.ConfigurationManager >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -3788,7 +3788,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\mathi\\.dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3798,14 +3797,14 @@
             "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
               "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
             },
+            "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj": {
+              "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj"
+            },
             "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
               "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj"
             },
-            "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TSDB1\\TSDB1.csproj": {
-              "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TSDB1\\TSDB1.csproj"
-            },
-            "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TSDB2\\TSDB2.csproj": {
-              "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TSDB2\\TSDB2.csproj"
+            "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj": {
+              "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj"
             }
           }
         }
@@ -3852,7 +3851,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\mathi\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
