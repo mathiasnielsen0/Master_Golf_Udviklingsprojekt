@@ -627,6 +627,41 @@
           }
         }
       },
+      "Npgsql/7.0.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/7.0.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "[7.0.5, 8.0.0)",
+          "Microsoft.EntityFrameworkCore.Abstractions": "[7.0.5, 8.0.0)",
+          "Microsoft.EntityFrameworkCore.Relational": "[7.0.5, 8.0.0)",
+          "Npgsql": "7.0.4"
+        },
+        "compile": {
+          "lib/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.5.0": {
         "type": "package",
         "dependencies": {
@@ -1207,17 +1242,18 @@
           "bin/placeholder/MSSQL.dll": {}
         }
       },
-      "PrometheusDB/1.0.0": {
+      "TimeScaleDB/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Core": "1.0.0"
+          "Core": "1.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "compile": {
-          "bin/placeholder/PrometheusDB.dll": {}
+          "bin/placeholder/TimeScaleDB.dll": {}
         },
         "runtime": {
-          "bin/placeholder/PrometheusDB.dll": {}
+          "bin/placeholder/TimeScaleDB.dll": {}
         }
       }
     }
@@ -2355,6 +2391,48 @@
         "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll",
         "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "Npgsql/7.0.4": {
+      "sha512": "7UVPYy2RP0ci04PED1tc9ZCaTw/DfSdSkLiGEFCAvwMwsgA/bAluj1liNzP1IpN0MFofnOF0cm1zJfmbEuCehg==",
+      "type": "package",
+      "path": "npgsql/7.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net5.0/Npgsql.dll",
+        "lib/net5.0/Npgsql.xml",
+        "lib/net6.0/Npgsql.dll",
+        "lib/net6.0/Npgsql.xml",
+        "lib/net7.0/Npgsql.dll",
+        "lib/net7.0/Npgsql.xml",
+        "lib/netcoreapp3.1/Npgsql.dll",
+        "lib/netcoreapp3.1/Npgsql.xml",
+        "lib/netstandard2.0/Npgsql.dll",
+        "lib/netstandard2.0/Npgsql.xml",
+        "lib/netstandard2.1/Npgsql.dll",
+        "lib/netstandard2.1/Npgsql.xml",
+        "npgsql.7.0.4.nupkg.sha512",
+        "npgsql.nuspec",
+        "postgresql.png"
+      ]
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/7.0.4": {
+      "sha512": "ZYMtyG6pmLtUsFAx0/XaIlVkJM+1gArWEKD55cLLxiVlGScAphjiGj+G7Gk16yg5lhhdWx+bgXWpIUISXuS33g==",
+      "type": "package",
+      "path": "npgsql.entityframeworkcore.postgresql/7.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll",
+        "lib/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.xml",
+        "lib/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll",
+        "lib/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.xml",
+        "npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",
+        "npgsql.entityframeworkcore.postgresql.nuspec",
+        "postgresql.png"
       ]
     },
     "Swashbuckle.AspNetCore/6.5.0": {
@@ -3750,10 +3828,10 @@
       "path": "../MSSQL/MSSQL.csproj",
       "msbuildProject": "../MSSQL/MSSQL.csproj"
     },
-    "PrometheusDB/1.0.0": {
+    "TimeScaleDB/1.0.0": {
       "type": "project",
-      "path": "../PrometheusDB/PrometheusDB.csproj",
-      "msbuildProject": "../PrometheusDB/PrometheusDB.csproj"
+      "path": "../TimeScaleDB/TimeScaleDB.csproj",
+      "msbuildProject": "../TimeScaleDB/TimeScaleDB.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3762,9 +3840,9 @@
       "InfluxDB >= 1.0.0",
       "MSSQL >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.10",
-      "PrometheusDB >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0",
-      "System.Configuration.ConfigurationManager >= 7.0.0"
+      "System.Configuration.ConfigurationManager >= 7.0.0",
+      "TimeScaleDB >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3803,8 +3881,8 @@
             "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
               "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj"
             },
-            "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj": {
-              "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj"
+            "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj": {
+              "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj"
             }
           }
         }

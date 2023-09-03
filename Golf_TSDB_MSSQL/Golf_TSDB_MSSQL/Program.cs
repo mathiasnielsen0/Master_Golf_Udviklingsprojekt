@@ -1,4 +1,5 @@
 using MSSQL;
+using TSDB2.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<IMyDbContext, MyDbContext>();
+builder.Services.AddDbContext<ITimeScaleDbContext, TimeScaleDbContext>();
 
 var app = builder.Build();
 

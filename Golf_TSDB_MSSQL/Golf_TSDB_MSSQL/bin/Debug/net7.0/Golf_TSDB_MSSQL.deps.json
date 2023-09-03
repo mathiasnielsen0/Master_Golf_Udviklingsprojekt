@@ -9,12 +9,12 @@
       "Golf_TSDB_MSSQL/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
+          "InfluxDB": "1.0.0",
           "MSSQL": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.10",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.Configuration.ConfigurationManager": "7.0.0",
-          "TSDB1": "1.0.0",
-          "TSDB2": "1.0.0"
+          "TimeScaleDB": "1.0.0"
         },
         "runtime": {
           "Golf_TSDB_MSSQL.dll": {}
@@ -359,6 +359,31 @@
           }
         }
       },
+      "Npgsql/7.0.4": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/Npgsql.dll": {
+            "assemblyVersion": "7.0.4.0",
+            "fileVersion": "7.0.4.0"
+          }
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/7.0.4": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.10",
+          "Microsoft.EntityFrameworkCore.Abstractions": "7.0.10",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.10",
+          "Npgsql": "7.0.4"
+        },
+        "runtime": {
+          "lib/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "assemblyVersion": "7.0.4.0",
+            "fileVersion": "7.0.4.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.5.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -610,6 +635,14 @@
           "Core.dll": {}
         }
       },
+      "InfluxDB/1.0.0": {
+        "dependencies": {
+          "Core": "1.0.0"
+        },
+        "runtime": {
+          "InfluxDB.dll": {}
+        }
+      },
       "MSSQL/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
@@ -621,20 +654,13 @@
           "MSSQL.dll": {}
         }
       },
-      "TSDB1/1.0.0": {
+      "TimeScaleDB/1.0.0": {
         "dependencies": {
-          "Core": "1.0.0"
+          "Core": "1.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {
-          "TSDB1.dll": {}
-        }
-      },
-      "TSDB2/1.0.0": {
-        "dependencies": {
-          "Core": "1.0.0"
-        },
-        "runtime": {
-          "TSDB2.dll": {}
+          "TimeScaleDB.dll": {}
         }
       }
     }
@@ -897,6 +923,20 @@
       "path": "microsoft.win32.systemevents/7.0.0",
       "hashPath": "microsoft.win32.systemevents.7.0.0.nupkg.sha512"
     },
+    "Npgsql/7.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7UVPYy2RP0ci04PED1tc9ZCaTw/DfSdSkLiGEFCAvwMwsgA/bAluj1liNzP1IpN0MFofnOF0cm1zJfmbEuCehg==",
+      "path": "npgsql/7.0.4",
+      "hashPath": "npgsql.7.0.4.nupkg.sha512"
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/7.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZYMtyG6pmLtUsFAx0/XaIlVkJM+1gArWEKD55cLLxiVlGScAphjiGj+G7Gk16yg5lhhdWx+bgXWpIUISXuS33g==",
+      "path": "npgsql.entityframeworkcore.postgresql/7.0.4",
+      "hashPath": "npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.5.0": {
       "type": "package",
       "serviceable": true,
@@ -1133,17 +1173,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "InfluxDB/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "MSSQL/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "TSDB1/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "TSDB2/1.0.0": {
+    "TimeScaleDB/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

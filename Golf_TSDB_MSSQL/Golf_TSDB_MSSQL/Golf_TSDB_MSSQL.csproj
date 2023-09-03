@@ -16,7 +16,7 @@
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\MSSQL\MSSQL.csproj" />
       <ProjectReference Include="..\InfluxDB\InfluxDB.csproj" />
-      <ProjectReference Include="..\PrometheusDB\PrometheusDB.csproj" />
+      <ProjectReference Include="..\TimeScaleDB\TimeScaleDB.csproj" />
     </ItemGroup>
 
 </Project>

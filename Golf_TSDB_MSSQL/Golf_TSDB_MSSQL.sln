@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSQL", "MSSQL\MSSQL.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfluxDB", "InfluxDB\InfluxDB.csproj", "{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrometheusDB", "PrometheusDB\PrometheusDB.csproj", "{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeScaleDB", "TimeScaleDB\TimeScaleDB.csproj", "{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

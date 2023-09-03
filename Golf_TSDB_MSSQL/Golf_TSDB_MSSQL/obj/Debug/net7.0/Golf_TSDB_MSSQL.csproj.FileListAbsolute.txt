@@ -82,12 +82,8 @@ C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_T
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\Core.dll
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\MSSQL.dll
-C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\TSDB1.dll
-C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\TSDB2.dll
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\Core.pdb
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\MSSQL.pdb
-C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\TSDB1.pdb
-C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\TSDB2.pdb
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\obj\Debug\net7.0\Golf_TSDB_MSSQL.csproj.AssemblyReference.cache
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\obj\Debug\net7.0\Golf_TSDB_MSSQL.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\obj\Debug\net7.0\Golf_TSDB_MSSQL.AssemblyInfoInputs.cache
@@ -109,3 +105,9 @@ C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_T
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\obj\Debug\net7.0\Golf_TSDB_MSSQL.pdb
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\obj\Debug\net7.0\Golf_TSDB_MSSQL.genruntimeconfig.cache
 C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\obj\Debug\net7.0\ref\Golf_TSDB_MSSQL.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\Npgsql.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\InfluxDB.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\TimeScaleDB.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\InfluxDB.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Golf_TSDB_MSSQL\bin\Debug\net7.0\TimeScaleDB.pdb
