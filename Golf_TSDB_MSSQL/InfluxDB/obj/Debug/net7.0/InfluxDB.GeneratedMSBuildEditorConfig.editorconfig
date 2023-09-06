@@ -7,5 +7,5 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.RootNamespace = TSDB1
-build_property.ProjectDir = C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\InfluxDB\
+build_property.RootNamespace = InfluxDB
+build_property.ProjectDir = C:\Users\snush\source\repos\mathiasnielsen0\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\InfluxDB\

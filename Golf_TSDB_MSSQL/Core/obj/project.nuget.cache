@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WyINHGVhrL0p5Gj+aRYFAq7bOMmDi1QbZUpD5xPsUhDLHn5hzDB/SxMU18UoD2mmyzZQGj9RTk2kfbt8HunIkw==",
+  "dgSpecHash": "AFZCjdweckSr8PzzcPuVMktZwa7pHEDbg06EAu1GRJ04ZMfVNzdQMPtAvuiOrYzztKDsCICCBFzURBs+yInzYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
+  "projectFilePath": "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

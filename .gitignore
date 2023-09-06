@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Master_Golf_Udviklingsprojekt
+/Golf_TSDB_MSSQL/.vs/Golf_TSDB_MSSQL/FileContentIndex
+/Golf_TSDB_MSSQL/Core/obj
+/Golf_TSDB_MSSQL/Golf_TSDB_MSSQL/obj
+/Golf_TSDB_MSSQL/MSSQL/obj
+/Golf_TSDB_MSSQL/TSDB1/obj
+/Golf_TSDB_MSSQL/TSDB2/obj
+/.vs

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MSSQL;
 
 namespace Golf_TSDB_MSSQL.Controllers;
 
@@ -7,8 +8,11 @@ namespace Golf_TSDB_MSSQL.Controllers;
 [Route("[controller]")]
 public class TsDb2Controller : ControllerBase
 {
-    public TsDb2Controller()
+    private readonly IMyDbContext _myDbContext;
+
+    public TsDb2Controller(IMyDbContext myDbContext)
     {
+        
     }
 
     [HttpGet(Name = "Results3")]
