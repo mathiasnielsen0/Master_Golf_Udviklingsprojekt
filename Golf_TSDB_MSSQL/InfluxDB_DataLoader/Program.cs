@@ -11,9 +11,10 @@ internal class Program
 {
     private static async Task Main(string[] args)
     {
-        await WriteOneRecordToInfluxDBAndReadItAgain();
+        //await WriteOneRecordToInfluxDBAndReadItAgain();
+        //WriteOneHoldingRecordsToInfluxDBAndReadSomeAgain();
         //await WriteManyRecordsToInfluxDBAndReadSomeAgain();
-        //await SeedInfluxDBFromSqlDatabase();
+        await SeedInfluxDBFromSqlDatabase();
     }
 
     private PointData CreatePointData(Core.Models.HoldingsInAccount holdingInAccount)
@@ -39,6 +40,20 @@ internal class Program
         string bucket = "Holdings";
         string org = "Sparinvest";
         string measu = "holdings_in_account";
+
+        var dataPoint = PointData.Measurement(measu) // Define measurement name
+            .Tag("AccountCode", "1111") // Add tags
+            .Tag("Name", "Allan")
+            .Field("LocalCurrencyCode", "DKK")
+            .Field("BondType", "Stock")
+            .Field("HoldingType", "HoldingType")
+            .Field("MarketValue", 123.32) // Add fields
+            .Field("NumberOfShare", 1234)
+            .Field("Percentage", 0.45)
+            .Timestamp(DateTime.Now.ToUniversalTime(), WritePrecision.S);
+
+        // Save testdata to Influx
+        InfluxRepo.WriteDataAsync(bucket, org, dataPoint);
 
     }
 
@@ -127,7 +142,7 @@ internal class Program
         FluxRecord record = await InfluxRepo.QueryDataOneRecordAsync(bucket, org, query);
 
         // Compare data to verify that it is written and read correct.
-        if (record != null && record.GetValueByKey("_value").ToString() == "123.45") // Assuming FluxRecord has a method GetField
+        if (record != null && record.GetValueByKey("_value").ToString() == "124.45") // Assuming FluxRecord has a method GetField
         {
             Console.WriteLine("Data verified: The record written matches the record read.");
         }
