@@ -1,14 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golf_TSDB_MSSQL", "Golf_TSDB_MSSQL\Golf_TSDB_MSSQL.csproj", "{F84D7E82-9A2C-49B9-9179-B53B024AD15A}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Golf_TSDB_MSSQL", "Golf_TSDB_MSSQL\Golf_TSDB_MSSQL.csproj", "{F84D7E82-9A2C-49B9-9179-B53B024AD15A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{78E56E02-3AD0-49AE-A748-31C7357F3046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{78E56E02-3AD0-49AE-A748-31C7357F3046}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSQL", "MSSQL\MSSQL.csproj", "{94129CB9-36F3-442D-B596-297DC1F6C080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSSQL", "MSSQL\MSSQL.csproj", "{94129CB9-36F3-442D-B596-297DC1F6C080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfluxDB", "InfluxDB\InfluxDB.csproj", "{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfluxDB", "InfluxDB\InfluxDB.csproj", "{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrometheusDB", "PrometheusDB\PrometheusDB.csproj", "{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrometheusDB", "PrometheusDB\PrometheusDB.csproj", "{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfluxDB_DataLoader", "InfluxDB_DataLoader\InfluxDB_DataLoader.csproj", "{E73755EF-0D64-4807-A31A-F50D13FC2434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +41,12 @@ Global
 		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

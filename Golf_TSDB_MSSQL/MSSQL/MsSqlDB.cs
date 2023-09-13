@@ -86,7 +86,7 @@ namespace MSSQL
         void UpdateRange(IEnumerable<object> entities);
         void UpdateRange(params object[] entities);
 
-        IQueryable<TResult> FromExpression<TResult> (Expression<Func<IQueryable<TResult>>> expression);
+        IQueryable<TResult> FromExpression<TResult>(Expression<Func<IQueryable<TResult>>> expression);
     }
 
     #endregion
@@ -119,7 +119,10 @@ namespace MSSQL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=AHO;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
+                if (Environment.MachineName == "WINLINUXPC") // Allans PC
+                    optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Holdings;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
+                else
+                    optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=AHO;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
             }
         }
 
@@ -376,7 +379,7 @@ namespace MSSQL
             throw new NotImplementedException();
         }
 
-        public virtual IQueryable<TResult> FromExpression<TResult> (Expression<Func<IQueryable<TResult>>> expression)
+        public virtual IQueryable<TResult> FromExpression<TResult>(Expression<Func<IQueryable<TResult>>> expression)
         {
             throw new NotImplementedException();
         }
@@ -420,15 +423,15 @@ namespace MSSQL
         public FakeDbSet()
         {
             _primaryKeys = null;
-            _data        = new ObservableCollection<TEntity>();
-            _query       = _data.AsQueryable();
+            _data = new ObservableCollection<TEntity>();
+            _query = _data.AsQueryable();
         }
 
         public FakeDbSet(params string[] primaryKeys)
         {
             _primaryKeys = typeof(TEntity).GetProperties().Where(x => primaryKeys.Contains(x.Name)).ToArray();
-            _data        = new ObservableCollection<TEntity>();
-            _query       = _data.AsQueryable();
+            _data = new ObservableCollection<TEntity>();
+            _query = _data.AsQueryable();
         }
 
         public override TEntity Find(params object[] keyValues)
@@ -548,7 +551,7 @@ namespace MSSQL
         public override void UpdateRange(IEnumerable<TEntity> entities)
         {
             if (entities == null) throw new ArgumentNullException("entities");
-            var array = entities.ToArray();        RemoveRange(array);
+            var array = entities.ToArray(); RemoveRange(array);
             AddRange(array);
         }
 
@@ -596,7 +599,7 @@ namespace MSSQL
 
         public void ResetState()
         {
-            _data  = new ObservableCollection<TEntity>();
+            _data = new ObservableCollection<TEntity>();
             _query = _data.AsQueryable();
         }
 
@@ -625,7 +628,7 @@ namespace MSSQL
                 .MakeGenericMethod(expectedResultType)
                 .Invoke(this, new object[] { expression });
 
-            return (TResult) typeof(Task).GetMethod(nameof(Task.FromResult))
+            return (TResult)typeof(Task).GetMethod(nameof(Task.FromResult))
                 ?.MakeGenericMethod(expectedResultType)
                 .Invoke(null, new[] { executionResult });
         }
@@ -711,7 +714,7 @@ namespace MSSQL
             {
                 var resultType = m.Method.ReturnType; // it should be IQueryable<T>
                 var tElement = resultType.GetGenericArguments().First();
-                return (IQueryable) CreateInstance(tElement, expression);
+                return (IQueryable)CreateInstance(tElement, expression);
             }
 
             return CreateQuery<T>(expression);
@@ -719,7 +722,7 @@ namespace MSSQL
 
         public IQueryable<TEntity> CreateQuery<TEntity>(Expression expression)
         {
-            return (IQueryable<TEntity>) CreateInstance(typeof(TEntity), expression);
+            return (IQueryable<TEntity>)CreateInstance(typeof(TEntity), expression);
         }
 
         private object CreateInstance(Type tElement, Expression expression)
@@ -760,7 +763,7 @@ namespace MSSQL
         {
             var visitor = new FakeExpressionVisitor();
             var body = visitor.Visit(expression);
-            var f = Expression.Lambda<Func<TResult>>(body ?? throw new InvalidOperationException(string.Format("{0} is null", nameof(body))), (IEnumerable<ParameterExpression>) null);
+            var f = Expression.Lambda<Func<TResult>>(body ?? throw new InvalidOperationException(string.Format("{0} is null", nameof(body))), (IEnumerable<ParameterExpression>)null);
             return f.Compile()();
         }
     }
@@ -1231,7 +1234,7 @@ namespace MSSQL
             builder.Property(x => x.IsSecurityLendingAllowed).HasColumnName(@"IsSecurityLendingAllowed").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsEthical).HasColumnName(@"IsEthical").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.PoolId).HasColumnName(@"PoolId").HasColumnType("char(7)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(7);
-            builder.Property(x => x.UnitSize).HasColumnName(@"UnitSize").HasColumnType("numeric(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.UnitSize).HasColumnName(@"UnitSize").HasColumnType("numeric(38,2)").HasPrecision(38, 2).IsRequired(false);
             builder.Property(x => x.DomicileCode).HasColumnName(@"DomicileCode").HasColumnType("char(2)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(2);
             builder.Property(x => x.AssetClassCode).HasColumnName(@"AssetClassCode").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.AssetClass).HasColumnName(@"AssetClass").HasColumnType("varchar(100)").IsRequired(false).IsUnicode(false).HasMaxLength(100);
@@ -1287,7 +1290,7 @@ namespace MSSQL
             builder.Property(x => x.Benchmark).HasColumnName(@"Benchmark").HasColumnType("varchar(250)").IsRequired(false).IsUnicode(false).HasMaxLength(250);
             builder.Property(x => x.PortfolioManager).HasColumnName(@"PortfolioManager").HasColumnType("varchar(1000)").IsRequired(false).IsUnicode(false).HasMaxLength(1000);
             builder.Property(x => x.IsHoldingsDrillDownRequired).HasColumnName(@"IsHoldingsDrillDownRequired").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.RecommendedHoldingPeriodInYears).HasColumnName(@"RecommendedHoldingPeriodInYears").HasColumnType("numeric(9,2)").HasPrecision(9,2).IsRequired(false);
+            builder.Property(x => x.RecommendedHoldingPeriodInYears).HasColumnName(@"RecommendedHoldingPeriodInYears").HasColumnType("numeric(9,2)").HasPrecision(9, 2).IsRequired(false);
             builder.Property(x => x.InvestOneFirstNavDate).HasColumnName(@"InvestOneFirstNavDate").HasColumnType("date").IsRequired(false);
         }
     }
@@ -1315,7 +1318,7 @@ namespace MSSQL
             builder.Property(x => x.BondTypeCode).HasColumnName(@"BondTypeCode").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
             builder.Property(x => x.IssueDate).HasColumnName(@"IssueDate").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.MaturityDate).HasColumnName(@"MaturityDate").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.Coupon).HasColumnName(@"Coupon").HasColumnType("numeric(38,6)").HasPrecision(38,6).IsRequired(false);
+            builder.Property(x => x.Coupon).HasColumnName(@"Coupon").HasColumnType("numeric(38,6)").HasPrecision(38, 6).IsRequired(false);
             builder.Property(x => x.AccrualMethodCode).HasColumnName(@"AccrualMethodCode").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
             builder.Property(x => x.CouponFrequencyCode).HasColumnName(@"CouponFrequencyCode").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
             builder.Property(x => x.CollateralTypeCode).HasColumnName(@"CollateralTypeCode").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
@@ -1331,8 +1334,8 @@ namespace MSSQL
             builder.Property(x => x.IsCboClo).HasColumnName(@"IsCboClo").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsConvertibleBond).HasColumnName(@"IsConvertibleBond").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsInitialMarginUsed).HasColumnName(@"IsInitialMarginUsed").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.InitialHedgerMarginLimit).HasColumnName(@"InitialHedgerMarginLimit").HasColumnType("numeric(38,2)").HasPrecision(38,2).IsRequired(false);
-            builder.Property(x => x.InitialSpeculatorMarginLimit).HasColumnName(@"InitialSpeculatorMarginLimit").HasColumnType("numeric(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.InitialHedgerMarginLimit).HasColumnName(@"InitialHedgerMarginLimit").HasColumnType("numeric(38,2)").HasPrecision(38, 2).IsRequired(false);
+            builder.Property(x => x.InitialSpeculatorMarginLimit).HasColumnName(@"InitialSpeculatorMarginLimit").HasColumnType("numeric(38,2)").HasPrecision(38, 2).IsRequired(false);
             builder.Property(x => x.RiskWeight).HasColumnName(@"RiskWeight").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
             builder.Property(x => x.LinkedAsset).HasColumnName(@"LinkedAsset").HasColumnType("varchar(50)").IsRequired(false).IsUnicode(false).HasMaxLength(50);
             builder.Property(x => x.CompanyTicker).HasColumnName(@"CompanyTicker").HasColumnType("varchar(50)").IsRequired(false).IsUnicode(false).HasMaxLength(50);
@@ -1380,30 +1383,30 @@ namespace MSSQL
             builder.Property(x => x.BaseCurrencyCode).HasColumnName(@"BaseCurrencyCode").HasColumnType("char(3)").IsRequired().IsFixedLength().IsUnicode(false).HasMaxLength(3);
             builder.Property(x => x.InvestmentCurrencyCode).HasColumnName(@"InvestmentCurrencyCode").HasColumnType("char(3)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(3);
             builder.Property(x => x.CounterCurrencyCode).HasColumnName(@"CounterCurrencyCode").HasColumnType("char(3)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(3);
-            builder.Property(x => x.FxRate).HasColumnName(@"FxRate").HasColumnType("numeric(18,8)").HasPrecision(18,8).IsRequired(false);
-            builder.Property(x => x.NominalHolding).HasColumnName(@"NominalHolding").HasColumnType("numeric(18,4)").HasPrecision(18,4).IsRequired(false);
-            builder.Property(x => x.NominalHoldingSettled).HasColumnName(@"NominalHoldingSettled").HasColumnType("numeric(18,4)").HasPrecision(18,4).IsRequired(false);
-            builder.Property(x => x.NominalHoldingPending).HasColumnName(@"NominalHoldingPending").HasColumnType("numeric(18,4)").HasPrecision(18,4).IsRequired(false);
-            builder.Property(x => x.ValuationPrice).HasColumnName(@"ValuationPrice").HasColumnType("numeric(18,6)").HasPrecision(18,6).IsRequired(false);
-            builder.Property(x => x.AverageCostMarketValue).HasColumnName(@"AverageCostMarketValue").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.Weight).HasColumnName(@"Weight").HasColumnType("numeric(18,6)").HasPrecision(18,6).IsRequired(false);
-            builder.Property(x => x.MarketValueInBaseCurrency).HasColumnName(@"MarketValueInBaseCurrency").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired();
-            builder.Property(x => x.MarketValueInBaseCurrencySettled).HasColumnName(@"MarketValueInBaseCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.MarketValueInBaseCurrencyPending).HasColumnName(@"MarketValueInBaseCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.AccruedInterestInBaseCurrency).HasColumnName(@"AccruedInterestInBaseCurrency").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.AccruedInterestInBaseCurrencySettled).HasColumnName(@"AccruedInterestInBaseCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.AccruedInterestInBaseCurrencyPending).HasColumnName(@"AccruedInterestInBaseCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.MarketValueInInvestmentCurrency).HasColumnName(@"MarketValueInInvestmentCurrency").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.MarketValueInInvestmentCurrencySettled).HasColumnName(@"MarketValueInInvestmentCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.MarketValueInInvestmentCurrencyPending).HasColumnName(@"MarketValueInInvestmentCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.AccruedInterestInInvestmentCurrency).HasColumnName(@"AccruedInterestInInvestmentCurrency").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.AccruedInterestInInvestmentCurrencySettled).HasColumnName(@"AccruedInterestInInvestmentCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.AccruedInterestInInvestmentCurrencyPending).HasColumnName(@"AccruedInterestInInvestmentCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.FxRate).HasColumnName(@"FxRate").HasColumnType("numeric(18,8)").HasPrecision(18, 8).IsRequired(false);
+            builder.Property(x => x.NominalHolding).HasColumnName(@"NominalHolding").HasColumnType("numeric(18,4)").HasPrecision(18, 4).IsRequired(false);
+            builder.Property(x => x.NominalHoldingSettled).HasColumnName(@"NominalHoldingSettled").HasColumnType("numeric(18,4)").HasPrecision(18, 4).IsRequired(false);
+            builder.Property(x => x.NominalHoldingPending).HasColumnName(@"NominalHoldingPending").HasColumnType("numeric(18,4)").HasPrecision(18, 4).IsRequired(false);
+            builder.Property(x => x.ValuationPrice).HasColumnName(@"ValuationPrice").HasColumnType("numeric(18,6)").HasPrecision(18, 6).IsRequired(false);
+            builder.Property(x => x.AverageCostMarketValue).HasColumnName(@"AverageCostMarketValue").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.Weight).HasColumnName(@"Weight").HasColumnType("numeric(18,6)").HasPrecision(18, 6).IsRequired(false);
+            builder.Property(x => x.MarketValueInBaseCurrency).HasColumnName(@"MarketValueInBaseCurrency").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired();
+            builder.Property(x => x.MarketValueInBaseCurrencySettled).HasColumnName(@"MarketValueInBaseCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.MarketValueInBaseCurrencyPending).HasColumnName(@"MarketValueInBaseCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.AccruedInterestInBaseCurrency).HasColumnName(@"AccruedInterestInBaseCurrency").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.AccruedInterestInBaseCurrencySettled).HasColumnName(@"AccruedInterestInBaseCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.AccruedInterestInBaseCurrencyPending).HasColumnName(@"AccruedInterestInBaseCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.MarketValueInInvestmentCurrency).HasColumnName(@"MarketValueInInvestmentCurrency").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.MarketValueInInvestmentCurrencySettled).HasColumnName(@"MarketValueInInvestmentCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.MarketValueInInvestmentCurrencyPending).HasColumnName(@"MarketValueInInvestmentCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.AccruedInterestInInvestmentCurrency).HasColumnName(@"AccruedInterestInInvestmentCurrency").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.AccruedInterestInInvestmentCurrencySettled).HasColumnName(@"AccruedInterestInInvestmentCurrencySettled").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.AccruedInterestInInvestmentCurrencyPending).HasColumnName(@"AccruedInterestInInvestmentCurrencyPending").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
             builder.Property(x => x.ContractNumber).HasColumnName(@"ContractNumber").HasColumnType("varchar(50)").IsRequired(false).IsUnicode(false).HasMaxLength(50);
             builder.Property(x => x.Leg).HasColumnName(@"Leg").HasColumnType("char(1)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(1);
             builder.Property(x => x.RelatedProduct).HasColumnName(@"RelatedProduct").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
             builder.Property(x => x.InvestmentAccount).HasColumnName(@"InvestmentAccount").HasColumnType("varchar(20)").IsRequired().IsUnicode(false).HasMaxLength(20);
-            builder.Property(x => x.SecurityReturnValueInBaseCurrency).HasColumnName(@"SecurityReturnValueInBaseCurrency").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SecurityReturnValueInBaseCurrency).HasColumnName(@"SecurityReturnValueInBaseCurrency").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
             builder.Property(x => x.SecurityReturnInBaseCurrency).HasColumnName(@"SecurityReturnInBaseCurrency").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.SecurityContributionToReturnInBaseCurrency).HasColumnName(@"SecurityContributionToReturnInBaseCurrency").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MpAccountCode).HasColumnName(@"MPAccountCode").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
@@ -1421,12 +1424,12 @@ namespace MSSQL
             builder.Property(x => x.AccountCode).HasColumnName(@"AccountCode").HasColumnType("varchar(20)").IsRequired().IsUnicode(false).HasMaxLength(20);
             builder.Property(x => x.NavDate).HasColumnName(@"NavDate").HasColumnType("date").IsRequired();
             builder.Property(x => x.LocalCurrencyCode).HasColumnName(@"LocalCurrencyCode").HasColumnType("char(3)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(3);
-            builder.Property(x => x.MarketValue).HasColumnName(@"MarketValue").HasColumnType("decimal(24,2)").HasPrecision(24,2).IsRequired(false);
-            builder.Property(x => x.NumberOfShare).HasColumnName(@"NumberOfShare").HasColumnType("decimal(24,2)").HasPrecision(24,2).IsRequired(false);
+            builder.Property(x => x.MarketValue).HasColumnName(@"MarketValue").HasColumnType("decimal(24,2)").HasPrecision(24, 2).IsRequired(false);
+            builder.Property(x => x.NumberOfShare).HasColumnName(@"NumberOfShare").HasColumnType("decimal(24,2)").HasPrecision(24, 2).IsRequired(false);
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar(250)").IsRequired().IsUnicode(false).HasMaxLength(250);
             builder.Property(x => x.BondType).HasColumnName(@"BondType").HasColumnType("varchar(250)").IsRequired(false).IsUnicode(false).HasMaxLength(250);
             builder.Property(x => x.HoldingType).HasColumnName(@"HoldingType").HasColumnType("varchar(50)").IsRequired().IsUnicode(false).HasMaxLength(50);
-            builder.Property(x => x.Percentage).HasColumnName(@"Percentage").HasColumnType("decimal(12,6)").HasPrecision(12,6).IsRequired(false);
+            builder.Property(x => x.Percentage).HasColumnName(@"Percentage").HasColumnType("decimal(12,6)").HasPrecision(12, 6).IsRequired(false);
         }
     }
 
@@ -1460,9 +1463,9 @@ namespace MSSQL
             builder.Property(x => x.FirstCouponDate).HasColumnName(@"FirstCouponDate").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.CouponFrequency).HasColumnName(@"CouponFrequency").HasColumnType("char(1)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(1);
             builder.Property(x => x.CouponFrequencyNameEnglish).HasColumnName(@"CouponFrequencyName_English").HasColumnType("varchar(100)").IsRequired(false).IsUnicode(false).HasMaxLength(100);
-            builder.Property(x => x.Coupon).HasColumnName(@"Coupon").HasColumnType("numeric(9,4)").HasPrecision(9,4).IsRequired(false);
+            builder.Property(x => x.Coupon).HasColumnName(@"Coupon").HasColumnType("numeric(9,4)").HasPrecision(9, 4).IsRequired(false);
             builder.Property(x => x.MaturityDate).HasColumnName(@"MaturityDate").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.SinkingFactor).HasColumnName(@"SinkingFactor").HasColumnType("numeric(18,7)").HasPrecision(18,7).IsRequired(false);
+            builder.Property(x => x.SinkingFactor).HasColumnName(@"SinkingFactor").HasColumnType("numeric(18,7)").HasPrecision(18, 7).IsRequired(false);
             builder.Property(x => x.MarketStatus).HasColumnName(@"MarketStatus").HasColumnType("varchar(4)").IsRequired(false).IsUnicode(false).HasMaxLength(4);
             builder.Property(x => x.LcrCategory).HasColumnName(@"LcrCategory").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
             builder.Property(x => x.RiskWeightSolvency).HasColumnName(@"RiskWeightSolvency").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
@@ -1482,7 +1485,7 @@ namespace MSSQL
             builder.Property(x => x.IncomeCategorySub).HasColumnName(@"IncomeCategorySub").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
             builder.Property(x => x.ContractType).HasColumnName(@"ContractType").HasColumnType("varchar(2)").IsRequired(false).IsUnicode(false).HasMaxLength(2);
             builder.Property(x => x.PutCallFlag).HasColumnName(@"PutCallFlag").HasColumnType("char(1)").IsRequired(false).IsFixedLength().IsUnicode(false).HasMaxLength(1);
-            builder.Property(x => x.StrikePrice).HasColumnName(@"StrikePrice").HasColumnType("numeric(18,6)").HasPrecision(18,6).IsRequired(false);
+            builder.Property(x => x.StrikePrice).HasColumnName(@"StrikePrice").HasColumnType("numeric(18,6)").HasPrecision(18, 6).IsRequired(false);
             builder.Property(x => x.LinkedSecurity).HasColumnName(@"LinkedSecurity").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ContractSize).HasColumnName(@"ContractSize").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ExpirationDate).HasColumnName(@"ExpirationDate").HasColumnType("date").IsRequired(false);
@@ -1496,15 +1499,15 @@ namespace MSSQL
             builder.Property(x => x.Sedol).HasColumnName(@"Sedol").HasColumnType("varchar(7)").IsRequired(false).IsUnicode(false).HasMaxLength(7);
             builder.Property(x => x.Cusip).HasColumnName(@"Cusip").HasColumnType("varchar(9)").IsRequired(false).IsUnicode(false).HasMaxLength(9);
             builder.Property(x => x.Units).HasColumnName(@"Units").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.QuotationFactor).HasColumnName(@"QuotationFactor").HasColumnType("numeric(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.QuotationFactor).HasColumnName(@"QuotationFactor").HasColumnType("numeric(18,4)").HasPrecision(18, 4).IsRequired(false);
             builder.Property(x => x.TickerAndExchangeCode).HasColumnName(@"TickerAndExchangeCode").HasColumnType("varchar(12)").IsRequired(false).IsUnicode(false).HasMaxLength(12);
             builder.Property(x => x.GuarantyLevel).HasColumnName(@"GuarantyLevel").HasColumnType("varchar(30)").IsRequired(false).IsUnicode(false).HasMaxLength(30);
             builder.Property(x => x.GuarantorCompany).HasColumnName(@"GuarantorCompany").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BloombergSecurityId).HasColumnName(@"BloombergSecurityId").HasColumnType("varchar(20)").IsRequired(false).IsUnicode(false).HasMaxLength(20);
             builder.Property(x => x.AlternatePricingSource).HasColumnName(@"AlternatePricingSource").HasColumnType("varchar(12)").IsRequired(false).IsUnicode(false).HasMaxLength(12);
             builder.Property(x => x.IsOtc).HasColumnName(@"IsOTC").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.VariationMargin).HasColumnName(@"VariationMargin").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.TickValue).HasColumnName(@"TickValue").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.VariationMargin).HasColumnName(@"VariationMargin").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.TickValue).HasColumnName(@"TickValue").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
             builder.Property(x => x.AccrualStartDate).HasColumnName(@"AccrualStartDate").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.BondType).HasColumnName(@"BondType").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
             builder.Property(x => x.CollateralType).HasColumnName(@"CollateralType").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
@@ -1528,8 +1531,8 @@ namespace MSSQL
             builder.Property(x => x.UltimateParentCompany).HasColumnName(@"UltimateParentCompany").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.AifmdExposureReportingAssetType).HasColumnName(@"AifmdExposureReportingAssetType").HasColumnType("varchar(16)").IsRequired(false).IsUnicode(false).HasMaxLength(16);
             builder.Property(x => x.AifmdExposureReportingSubAssetType).HasColumnName(@"AifmdExposureReportingSubAssetType").HasColumnType("varchar(16)").IsRequired(false).IsUnicode(false).HasMaxLength(16);
-            builder.Property(x => x.InitialSpeculatorMarginLimit).HasColumnName(@"InitialSpeculatorMarginLimit").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
-            builder.Property(x => x.InitialHedgerMarginLimit).HasColumnName(@"InitialHedgerMarginLimit").HasColumnType("numeric(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.InitialSpeculatorMarginLimit).HasColumnName(@"InitialSpeculatorMarginLimit").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
+            builder.Property(x => x.InitialHedgerMarginLimit).HasColumnName(@"InitialHedgerMarginLimit").HasColumnType("numeric(18,2)").HasPrecision(18, 2).IsRequired(false);
             builder.Property(x => x.NextCallDate).HasColumnName(@"NextCallDate").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.CouponNextResetDate).HasColumnName(@"CouponNextResetDate").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.TradableExchanges).HasColumnName(@"TradableExchanges").HasColumnType("varchar(3000)").IsRequired(false).IsUnicode(false).HasMaxLength(3000);

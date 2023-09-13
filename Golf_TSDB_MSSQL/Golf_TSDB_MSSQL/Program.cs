@@ -1,3 +1,4 @@
+using InfluxDB;
 using MSSQL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<IMyDbContext, MyDbContext>();
+builder.Services.AddSingleton<IInfluxDBRepository, InfluxDBRepository>();
 
 var app = builder.Build();
 
