@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "AFZCjdweckSr8PzzcPuVMktZwa7pHEDbg06EAu1GRJ04ZMfVNzdQMPtAvuiOrYzztKDsCICCBFzURBs+yInzYw==",
+  "dgSpecHash": "4f125h6VC1n19I92iKN2i/KptQVf4bfVIGKFSJJzR0SBYzdUfuh0+3uua7D/pdJNY3v44I8rEYmqWNgT1WpdvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
+  "projectFilePath": "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://maven/nexus/repository/itcm_nuget_group/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    },
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://maven/nexus/repository/itcm_templates/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

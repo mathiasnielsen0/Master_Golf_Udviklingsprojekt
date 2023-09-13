@@ -15,9 +15,8 @@ public class InfluxDBRepository : IInfluxDBRepository
 
     public InfluxDBRepository()
     {
-
         // Insert API Token here:
-        _client = new InfluxDBClient("http://localhost:8086", "7WWY1SAaJ1FUCEiPRmAdf4_PDo8KEZPPtTsEDaY6mMKuz0NGVpm-i5JRWzk-mLEVMSQfb6j-X7iyY2qe99SpCw==");
+        _client = new InfluxDBClient("http://localhost:8086", "2VXaEmksYuvUgTsQWjThcVIpLZ52UYnzDNJnuS1F8gtD1zuJ9a5uwCT4W4SCWGITz0cZgw5cQ7FqVPBYojd7IQ==");
     }
 
     public InfluxDBRepository(string url, string token)
@@ -57,7 +56,7 @@ public class InfluxDBRepository : IInfluxDBRepository
             .Field("MarketValue", holdingInAccount.MarketValue.HasValue ? Convert.ToDouble(holdingInAccount.MarketValue.Value) : default(double?)) // Add fields
             .Field("NumberOfShare", holdingInAccount.NumberOfShare.HasValue ? Convert.ToDouble(holdingInAccount.NumberOfShare.Value) : default(double?))
             .Field("Percentage", holdingInAccount.Percentage.HasValue ? Convert.ToDouble(holdingInAccount.Percentage.Value) : default(double?))
-            .Timestamp(holdingInAccount.NavDate, WritePrecision.S); // Set timestamp
+            .Timestamp(holdingInAccount.NavDate.ToUniversalTime(), WritePrecision.S); // Set timestamp
     }
 
     public void WriteDataAsync(string bucket, string org, PointData point)

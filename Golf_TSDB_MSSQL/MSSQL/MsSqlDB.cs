@@ -119,7 +119,7 @@ namespace MSSQL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                if (Environment.MachineName == "WINLINUXPC") // Allans PC
+                if (Environment.MachineName == "B32XL0ELTOD466S") // Allans PC
                     optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Holdings;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
                 else
                     optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=AHO;Integrated Security=True;MultipleActiveResultSets=True;Encrypt=false;TrustServerCertificate=true");
