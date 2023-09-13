@@ -7,6 +7,5 @@ using System.Threading.Tasks;
 namespace TSDB1
 {
     internal class Initialize_InfluxDB
-    {
-    }
+    {    }
 }

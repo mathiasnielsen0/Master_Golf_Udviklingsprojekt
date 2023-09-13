@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using InfluxDB.Client.Api.Domain;
 using Newtonsoft.Json.Linq;
 using Core.Models;
+using InfluxDB.Client.Core.Flux.Domain;
 
 namespace InfluxDB;
 
@@ -14,7 +15,9 @@ public class InfluxDBRepository : IInfluxDBRepository
 
     public InfluxDBRepository()
     {
-        _client = new InfluxDBClient("http://localhost:8086", "0bc2793bb567d000");
+
+        // Insert API Token here:
+        _client = new InfluxDBClient("http://localhost:8086", "7WWY1SAaJ1FUCEiPRmAdf4_PDo8KEZPPtTsEDaY6mMKuz0NGVpm-i5JRWzk-mLEVMSQfb6j-X7iyY2qe99SpCw==");
     }
 
     public InfluxDBRepository(string url, string token)
@@ -25,9 +28,17 @@ public class InfluxDBRepository : IInfluxDBRepository
 
     public void WriteDataBatchAsync(string bucket, string org, List<Core.Models.HoldingsInAccount> records)
     {
-        using var writeApi = _client.GetWriteApi();
-        var points = records.Select(record => CreatePointData(record)).ToList();
-        writeApi.WritePoints(points, bucket, org);
+        try
+        {
+            using var writeApi = _client.GetWriteApi();
+            var points = records.Select(record => CreatePointData(record)).ToList();
+            writeApi.WritePoints(points, bucket, org);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
     }
 
     public void WriteDataAsync(string bucket, string org, HoldingsInAccount holdingInAccount)
@@ -39,20 +50,38 @@ public class InfluxDBRepository : IInfluxDBRepository
     {
         return PointData.Measurement("holdings_in_account") // Define measurement name
             .Tag("AccountCode", holdingInAccount.AccountCode) // Add tags
+            .Tag("Name", holdingInAccount.Name)
             .Field("LocalCurrencyCode", holdingInAccount.LocalCurrencyCode)
-            .Field("Name", holdingInAccount.Name)
             .Field("BondType", holdingInAccount.BondType)
             .Field("HoldingType", holdingInAccount.HoldingType)
             .Field("MarketValue", holdingInAccount.MarketValue.HasValue ? Convert.ToDouble(holdingInAccount.MarketValue.Value) : default(double?)) // Add fields
             .Field("NumberOfShare", holdingInAccount.NumberOfShare.HasValue ? Convert.ToDouble(holdingInAccount.NumberOfShare.Value) : default(double?))
             .Field("Percentage", holdingInAccount.Percentage.HasValue ? Convert.ToDouble(holdingInAccount.Percentage.Value) : default(double?))
-            .Timestamp(holdingInAccount.NavDate, WritePrecision.Ns); // Set timestamp
+            .Timestamp(holdingInAccount.NavDate, WritePrecision.S); // Set timestamp
     }
 
     public void WriteDataAsync(string bucket, string org, PointData point)
     {
+        try
+        {
+            using var writeApi = _client.GetWriteApi();
+            writeApi.WritePoint(point, bucket, org);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
+    public void WriteDataAsync(string bucket, string org, List<PointData> points)
+    {
         using var writeApi = _client.GetWriteApi();
-        writeApi.WritePoint(point, bucket, org);
+
+        foreach (var item in points)
+        {
+            writeApi.WritePoint(item, bucket, org);
+        }
+        //writeApi.WritePoints(points, bucket, org);
     }
 
     public async Task<string> QueryDataAsync(string bucket, string org, string query)
@@ -69,11 +98,40 @@ public class InfluxDBRepository : IInfluxDBRepository
         return null;
     }
 
+    public async Task<List<FluxRecord>> QueryDataMultipleRecordsAsync(string bucket, string org, string query)
+    {
+        var tables = await _client.GetQueryApi().QueryAsync(query, org);
+
+        // For this example, return first value (adjust this to your needs)
+        if (tables != null && tables.Count > 0 && tables[0].Records != null && tables[0].Records.Count > 0)
+        {
+            return tables[0].Records;
+        }
+
+        return new List<FluxRecord>();
+    }
+
+    public async Task<FluxRecord> QueryDataOneRecordAsync(string bucket, string org, string query)
+    {
+        var tables = await _client.GetQueryApi().QueryAsync(query, org);
+
+        // For this example, return first value (adjust this to your needs)
+        if (tables != null && tables.Count > 0 && tables[0].Records != null && tables[0].Records.Count > 0)
+        {
+            return tables[0].Records[0];
+        }
+
+        return null;
+    }
+
     public async Task<List<HoldingsInAccount>> QueryDataAsync(string bucket, string org, string accountCode, DateTime navDate)
     {
+        var startDate = navDate.AddHours(-1).ToString("yyyy-MM-ddTHH:mm:ssZ");
+        var endDate = navDate.AddHours(1).ToString("yyyy-MM-ddTHH:mm:ssZ");
+
         var flux = $@"from(bucket:""{bucket}"")
-              |> range(start: {navDate.AddHours(-1):O}, stop: {navDate.AddHours(1):O})
-              |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"")";
+          |> range(start: {startDate}, stop: {endDate})
+          |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"")";
 
         var tables = await _client.GetQueryApi().QueryAsync(flux, org);
 
@@ -83,10 +141,15 @@ public class InfluxDBRepository : IInfluxDBRepository
         {
             foreach (var record in tables[0].Records)
             {
+                foreach (var item in record.Values)
+                {
+                    Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");  // Print every field's key and value
+                }
+
                 var holding = new HoldingsInAccount
                 {
                     AccountCode = record.GetValueByKey("AccountCode")?.ToString(),
-                    NavDate = Convert.ToDateTime(record.GetTime()), // Assuming NavDate is the timestamp
+                    NavDate = (DateTime)(record.GetTime()?.ToDateTimeUtc()),
                     LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
                     MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
                     NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
@@ -136,5 +199,24 @@ public class InfluxDBRepository : IInfluxDBRepository
 
         return resultList;
     }
+
+    public async Task<int> GetRowCountAsync(string bucket, string org)
+    {
+        var flux = $@"from(bucket:""{bucket}"")
+                  |> range(start: 0)
+                  |> filter(fn: (r) => r._measurement == ""holdings_in_account"")
+                  |> count(column: ""_value"")";
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+        if (tables != null && tables.Count > 0 && tables[0].Records != null && tables[0].Records.Count > 0)
+        {
+            // Sum op alle tællinger for at få den samlede antal rækker.
+            return tables[0].Records.Sum(record => Convert.ToInt32(record.GetValue()));
+        }
+
+        return 0;
+    }
+
 
 }

@@ -17,10 +17,17 @@ timeout 15
 REM Initial InfluxDB setup
 echo Setting up initial user, organization, and bucket...
 set USERNAME=InfluxTestUser
-set PASSWORD=Influx4¤
+set PASSWORD=Influx44!
 set ORG=Sparinvest
 set BUCKET=Holdings
 
 curl -X POST "http://localhost:8086/api/v2/setup" -H "accept: application/json" -d "{\"username\":\"%USERNAME%\",\"password\":\"%PASSWORD%\",\"org\":\"%ORG%\",\"bucket\":\"%BUCKET%\",\"token\":\"mytoken\"}"
 
 echo Setup complete.
+
+echo ---
+
+
+echo Create an API Token via: http://localhost:8086
+echo Copy the Token to C# in file: Golf_TSDB_MSSQL\InfluxDB\InfluxDBRepository.cs
+
