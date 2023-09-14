@@ -27,19 +27,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\snush\\.nuget\\packages\\": {}
+    "C:\\Users\\aho\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+      "projectUniqueName": "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
       "projectName": "PrometheusDB",
-      "projectPath": "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
-      "packagesPath": "C:\\Users\\snush\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\obj\\",
+      "projectPath": "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+      "packagesPath": "C:\\Users\\aho\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\snush\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -47,14 +52,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "http://maven/nexus/repository/itcm_nuget_group/": {},
+        "http://maven/nexus/repository/itcm_templates/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\snush\\source\\repos\\mathiasnielsen0\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
+            "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
             }
           }
         }
@@ -84,8 +92,22 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://maven/nexus/repository/itcm_nuget_group/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    },
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://maven/nexus/repository/itcm_templates/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

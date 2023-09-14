@@ -12,14 +12,52 @@ internal class Program
     private static async Task Main(string[] args)
     {
         //await WriteOneRecordToInfluxDBAndReadItAgain();
-        await WriteManyRecordsToInfluxDBAndReadSomeAgain();
-        //await SeedInfluxDBFromSqlDatabase();
+        //WriteOneHoldingRecordsToInfluxDBAndReadSomeAgain();
+        //await WriteManyRecordsToInfluxDBAndReadSomeAgain();
+        await SeedInfluxDBFromSqlDatabase();
+    }
+
+    private PointData CreatePointData(Core.Models.HoldingsInAccount holdingInAccount)
+    {
+        return PointData.Measurement("holdings_in_account") // Define measurement name
+            .Tag("AccountCode", holdingInAccount.AccountCode) // Add tags
+            .Tag("Name", holdingInAccount.Name)
+            .Field("LocalCurrencyCode", holdingInAccount.LocalCurrencyCode)
+            .Field("BondType", holdingInAccount.BondType)
+            .Field("HoldingType", holdingInAccount.HoldingType)
+            .Field("MarketValue", holdingInAccount.MarketValue.HasValue ? Convert.ToDouble(holdingInAccount.MarketValue.Value) : default(double?)) // Add fields
+            .Field("NumberOfShare", holdingInAccount.NumberOfShare.HasValue ? Convert.ToDouble(holdingInAccount.NumberOfShare.Value) : default(double?))
+            .Field("Percentage", holdingInAccount.Percentage.HasValue ? Convert.ToDouble(holdingInAccount.Percentage.Value) : default(double?))
+            .Timestamp(holdingInAccount.NavDate.ToUniversalTime(), WritePrecision.S); // Set timestamp
+    }
+
+    private static void WriteOneHoldingRecordsToInfluxDBAndReadSomeAgain()
+    {
+        Console.WriteLine("Save Holding records to InfluxDB...");
+        IInfluxDBRepository InfluxRepo = new InfluxDBRepository();
+
+        // Create a DataPoint for Influx with some testdata
+        string bucket = "Holdings";
+        string org = "Sparinvest";
+        string measu = "holdings_in_account";
+
+        var dataPoint = PointData.Measurement(measu) // Define measurement name
+            .Tag("AccountCode", "1111") // Add tags
+            .Tag("Name", "Allan")
+            .Field("LocalCurrencyCode", "DKK")
+            .Field("BondType", "Stock")
+            .Field("HoldingType", "HoldingType")
+            .Field("MarketValue", 123.32) // Add fields
+            .Field("NumberOfShare", 1234)
+            .Field("Percentage", 0.45)
+            .Timestamp(DateTime.Now.ToUniversalTime(), WritePrecision.S);
+
+        // Save testdata to Influx
+        InfluxRepo.WriteDataAsync(bucket, org, dataPoint);
+
     }
 
     private static async Task WriteManyRecordsToInfluxDBAndReadSomeAgain()
-    {
-    }
-        private static async Task WriteManyRecordsToInfluxDBAndReadSomeAgain()
     {
         Console.WriteLine("Save records to InfluxDB...");
         IInfluxDBRepository InfluxRepo = new InfluxDBRepository();
@@ -30,7 +68,7 @@ internal class Program
         string measu = "testMeasurement";
 
         var dataPoints = new List<PointData>();
-        var dato = new DateTime(2023, 9, 12, 3, 3 , 0);
+        var dato = new DateTime(2023, 9, 12, 3, 3, 0);
 
         for (int i = 0; i < 1000; i++)
         {
@@ -74,7 +112,7 @@ internal class Program
             Console.WriteLine("Data verified: All records match.");
         }
         else
- ,       {
+        {
             Console.WriteLine("Mismatch: Some records don't match.");
         }
     }
@@ -104,7 +142,7 @@ internal class Program
         FluxRecord record = await InfluxRepo.QueryDataOneRecordAsync(bucket, org, query);
 
         // Compare data to verify that it is written and read correct.
-        if (record != null && record.GetValueByKey("_value").ToString() == "123.45") // Assuming FluxRecord has a method GetField
+        if (record != null && record.GetValueByKey("_value").ToString() == "124.45") // Assuming FluxRecord has a method GetField
         {
             Console.WriteLine("Data verified: The record written matches the record read.");
         }
