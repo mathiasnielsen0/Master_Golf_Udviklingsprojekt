@@ -12,4 +12,5 @@ public class HoldingsInAccount
     public string BondType { get; set; } // BondType (length: 250)
     public string HoldingType { get; set; } // HoldingType (length: 50)
     public decimal? Percentage { get; set; } // Percentage
+    public decimal? ValuationPrice { get; set; }
 }
