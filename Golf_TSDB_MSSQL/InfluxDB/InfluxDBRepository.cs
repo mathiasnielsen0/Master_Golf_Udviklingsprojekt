@@ -16,7 +16,8 @@ public class InfluxDBRepository : IInfluxDBRepository
     public InfluxDBRepository()
     {
         // Insert API Token here:
-        _client = new InfluxDBClient("http://localhost:8086", "2VXaEmksYuvUgTsQWjThcVIpLZ52UYnzDNJnuS1F8gtD1zuJ9a5uwCT4W4SCWGITz0cZgw5cQ7FqVPBYojd7IQ==");
+        _client = new InfluxDBClient("http://localhost:8086",
+            "LdTBtNS_Le7Di866AtiBEjM8_8uIT-s4tRN_4wTRW0g58iXFnUIDgykRKmAtXWGJTmVhZqaiHJJNXJGF53DSeA==");
     }
 
     public InfluxDBRepository(string url, string token)
@@ -56,6 +57,7 @@ public class InfluxDBRepository : IInfluxDBRepository
             .Field("MarketValue", holdingInAccount.MarketValue.HasValue ? Convert.ToDouble(holdingInAccount.MarketValue.Value) : default(double?)) // Add fields
             .Field("NumberOfShare", holdingInAccount.NumberOfShare.HasValue ? Convert.ToDouble(holdingInAccount.NumberOfShare.Value) : default(double?))
             .Field("Percentage", holdingInAccount.Percentage.HasValue ? Convert.ToDouble(holdingInAccount.Percentage.Value) : default(double?))
+            .Field("ValuationPrice", holdingInAccount.ValuationPrice.HasValue ? Convert.ToDouble(holdingInAccount.ValuationPrice.Value) : default(double?))
             .Timestamp(holdingInAccount.NavDate.ToUniversalTime(), WritePrecision.S); // Set timestamp
     }
 
@@ -155,6 +157,7 @@ public class InfluxDBRepository : IInfluxDBRepository
                     Name = record.GetValueByKey("Name")?.ToString(),
                     BondType = record.GetValueByKey("BondType")?.ToString(),
                     HoldingType = record.GetValueByKey("HoldingType")?.ToString(),
+                    ValuationPrice = Convert.ToDecimal(record.GetValueByKey("ValuationPrice")),
                     Percentage = Convert.ToDecimal(record.GetValueByKey("Percentage"))
                 };
 
@@ -189,6 +192,7 @@ public class InfluxDBRepository : IInfluxDBRepository
                     Name = record.GetValueByKey("Name")?.ToString(),
                     BondType = record.GetValueByKey("BondType")?.ToString(),
                     HoldingType = record.GetValueByKey("HoldingType")?.ToString(),
+                    ValuationPrice = Convert.ToDecimal(record.GetValueByKey("ValuationPrice")),
                     Percentage = Convert.ToDecimal(record.GetValueByKey("Percentage"))
                 };
 

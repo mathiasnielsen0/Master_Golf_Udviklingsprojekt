@@ -1066,6 +1066,7 @@ namespace MSSQL
         public string BondType { get; set; } // BondType (length: 250)
         public string HoldingType { get; set; } // HoldingType (length: 50)
         public decimal? Percentage { get; set; } // Percentage
+        public decimal? ValuationPrice { get; set; } // Percentage
     }
 
     // Security
@@ -1430,6 +1431,7 @@ namespace MSSQL
             builder.Property(x => x.BondType).HasColumnName(@"BondType").HasColumnType("varchar(250)").IsRequired(false).IsUnicode(false).HasMaxLength(250);
             builder.Property(x => x.HoldingType).HasColumnName(@"HoldingType").HasColumnType("varchar(50)").IsRequired().IsUnicode(false).HasMaxLength(50);
             builder.Property(x => x.Percentage).HasColumnName(@"Percentage").HasColumnType("decimal(12,6)").HasPrecision(12, 6).IsRequired(false);
+            builder.Property(x => x.ValuationPrice).HasColumnName(@"ValuationPrice").HasColumnType("numeric(18,6)").HasPrecision(18, 6).IsRequired(false);
         }
     }
 

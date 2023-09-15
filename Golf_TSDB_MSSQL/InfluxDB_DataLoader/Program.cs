@@ -28,6 +28,7 @@ internal class Program
             .Field("MarketValue", holdingInAccount.MarketValue.HasValue ? Convert.ToDouble(holdingInAccount.MarketValue.Value) : default(double?)) // Add fields
             .Field("NumberOfShare", holdingInAccount.NumberOfShare.HasValue ? Convert.ToDouble(holdingInAccount.NumberOfShare.Value) : default(double?))
             .Field("Percentage", holdingInAccount.Percentage.HasValue ? Convert.ToDouble(holdingInAccount.Percentage.Value) : default(double?))
+            .Field("ValuationPrice", holdingInAccount.ValuationPrice.HasValue ? Convert.ToDouble(holdingInAccount.ValuationPrice.Value) : default(double?))
             .Timestamp(holdingInAccount.NavDate.ToUniversalTime(), WritePrecision.S); // Set timestamp
     }
 
@@ -161,7 +162,12 @@ internal class Program
         IMyDbContext dbContext = new MyDbContext();
 
         var firstDate = new DateTime(2012, 1, 1); // dbContext.HoldingsInAccounts.Min(i => i.NavDate);
+        //var lastDate = new DateTime(2012, 1, 10); // = dbContext.HoldingsInAccounts.Max(i => i.NavDate);
         var lastDate = new DateTime(2015, 1, 1); // = dbContext.HoldingsInAccounts.Max(i => i.NavDate);
+
+        long totalSqlTime = 0; // Total time spent on MS SQL operations
+        long totalInfluxTime = 0; // Total time spent on InfluxDB operations
+        int totalRecordsAdded = 0; // Total records added to InfluxDB
 
         Console.WriteLine($"Running from {firstDate:dd/MM/yyyy} to {lastDate:dd/MM/yyyy}");
 
@@ -170,6 +176,10 @@ internal class Program
         for (DateTime date = firstDate; date <= lastDate; date = date.AddDays(1))
         {
             Console.Write($"\rLoading {date:dd/MM/yyyy}...      ");
+
+            var sqlStopwatch = new Stopwatch();
+            sqlStopwatch.Start();
+
             List<Core.Models.HoldingsInAccount> recordsForDate = dbContext.HoldingsInAccounts.Where(i => i.NavDate == date).Select(i => new Core.Models.HoldingsInAccount
             {
                 AccountCode = i.AccountCode,
@@ -180,38 +190,53 @@ internal class Program
                 Name = i.Name,
                 NavDate = i.NavDate,
                 NumberOfShare = i.NumberOfShare,
-                Percentage = i.Percentage
+                Percentage = i.Percentage,
+                ValuationPrice = i.ValuationPrice
             }).ToList();
 
-            var sw = new Stopwatch();
-            sw.Start();
+            sqlStopwatch.Stop();
+            var sqlTime = sqlStopwatch.ElapsedMilliseconds;
+
 
             int iCount = 0;
             var recordsForDateCount = recordsForDate.Count;
             int batchCount = 0;
             if (recordsForDateCount > 0)
             {
-                const int batchSize = 2000; // Adjust this based on your requirements and observations.
+                totalSqlTime += sqlTime;
+
+                var influxStopwatch = new Stopwatch();
+                influxStopwatch.Start();
+
+                const int batchSize = 4000; // Adjust this based on your requirements and observations.
                 for (int i = 0; i < recordsForDateCount; i += batchSize)
                 {
                     var batch = recordsForDate.Skip(i).Take(batchSize).ToList();
                     iCount += batch.Count;
+                    totalRecordsAdded += batch.Count;
                     Console.Write($"\r{date:dd/MM/yyyy}:   Writing batch {++batchCount}   {iCount} / {recordsForDateCount}      ");
                     InfluxRepo.WriteDataBatchAsync("Holdings", "Sparinvest", batch);
                 }
-                var ellapsed = sw.ElapsedMilliseconds;
+                influxStopwatch.Stop();
+                var influxTime = influxStopwatch.ElapsedMilliseconds;
+                totalInfluxTime += influxTime;
 
-                long influxCount = await InfluxRepo.GetRowCountAsync("Holdings", "Sparinvest");
-                Console.WriteLine($"{(ellapsed / iCount):N1} ms/row - InfluxDB count: {influxCount}");
+                //long influxCount = await InfluxRepo.GetRowCountAsync("Holdings", "Sparinvest");
+                Console.WriteLine($"\r{date:dd/MM/yyyy}:   Records: {iCount}  MS SQL Time: {sqlTime} ms   InfluxDB Time: {influxTime} ms");
             }
-            //int iCount = recordsForDate.Count;
-            //int i = 0;
-            //foreach (var item in recordsForDate)
-            //{
-            //    Console.Write($"\r{date:dd/MM/yyyy}:   {++i} / {iCount}      ");
-            //    InfluxRepo.WriteDataAsync("Holdings", "Sparinvest", item);
-            //}
-            //Console.WriteLine();
         }
+
+        Console.WriteLine($"\nSummary: ");
+
+        // Format totalRecordsAdded with thousand separator
+        Console.WriteLine($"Total records added: {totalRecordsAdded:N0}");
+
+        // Convert milliseconds to hours, minutes, and seconds format for totalSqlTime
+        TimeSpan sqlTimeSpan = TimeSpan.FromMilliseconds(totalSqlTime);
+        Console.WriteLine($"Total MS SQL read Time: {sqlTimeSpan.Hours}h {sqlTimeSpan.Minutes}m {sqlTimeSpan.Seconds}s");
+
+        // Convert milliseconds to hours, minutes, and seconds format for totalInfluxTime
+        TimeSpan influxTimeSpan = TimeSpan.FromMilliseconds(totalInfluxTime);
+        Console.WriteLine($"Total InfluxDB write Time: {influxTimeSpan.Hours}h {influxTimeSpan.Minutes}m {influxTimeSpan.Seconds}s");
     }
 }

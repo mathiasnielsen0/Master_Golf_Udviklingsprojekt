@@ -23,11 +23,19 @@ set BUCKET=Holdings
 
 curl -X POST "http://localhost:8086/api/v2/setup" -H "accept: application/json" -d "{\"username\":\"%USERNAME%\",\"password\":\"%PASSWORD%\",\"org\":\"%ORG%\",\"bucket\":\"%BUCKET%\",\"token\":\"mytoken\"}"
 
+echo.
 echo Setup complete.
+echo.
+echo.
 
-echo ---
-
-
-echo Create an API Token via: http://localhost:8086
-echo Copy the Token to C# in file: Golf_TSDB_MSSQL\InfluxDB\InfluxDBRepository.cs
+echo Manual steps:
+echo.
+echo 1. Create an API Token via: http://localhost:8086 (UserName: %USERNAME%, Password: %PASSWORD%)
+echo.
+echo 2. Copy the Token to C# in file: Golf_TSDB_MSSQL\InfluxDB\InfluxDBRepository.cs
+echo.
+echo 3. Create Bucket called "Holdings"
+echo.
+echo 4. Run Project "InfluxDB_DataLoader" to seed data into InfluxDB
+echo.
 
