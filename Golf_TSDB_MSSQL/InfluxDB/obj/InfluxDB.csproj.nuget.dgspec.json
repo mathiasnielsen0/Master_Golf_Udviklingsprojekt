@@ -116,6 +116,10 @@
             "InfluxDB.Client": {
               "target": "Package",
               "version": "[4.13.0, )"
+            },
+            "NodaTime": {
+              "target": "Package",
+              "version": "[3.1.9, )"
             }
           },
           "imports": [

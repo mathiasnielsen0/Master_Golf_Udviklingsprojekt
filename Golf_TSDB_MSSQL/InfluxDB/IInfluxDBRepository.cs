@@ -9,7 +9,7 @@ namespace InfluxDB
         Task<string> QueryDataAsync(string bucket, string org, string query);
         Task<FluxRecord> QueryDataOneRecordAsync(string bucket, string org, string query);
         Task<List<FluxRecord>> QueryDataMultipleRecordsAsync(string bucket, string org, string query);
-        Task<List<HoldingsInAccount>> QueryDataAsync(string bucket, string org, string accountCode, DateTime navDate);
+        Task<List<HoldingsInAccount>> QueryDataAsync(string bucket, string org, DateTime fromNavDate, DateTime toNavDate, string accountCode, string? name = null);
         void WriteDataAsync(string bucket, string org, PointData point);
         void WriteDataAsync(string bucket, string org, List<PointData> point);
         void WriteDataAsync(string bucket, string org, HoldingsInAccount holdingInAccount);
