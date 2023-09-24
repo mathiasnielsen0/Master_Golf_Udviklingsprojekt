@@ -6,6 +6,7 @@ using InfluxDB.Client.Api.Domain;
 using Newtonsoft.Json.Linq;
 using Core.Models;
 using InfluxDB.Client.Core.Flux.Domain;
+using System.Text;
 
 namespace InfluxDB;
 
@@ -150,7 +151,7 @@ public class InfluxDBRepository : IInfluxDBRepository
                 var holding = new HoldingsInAccount
                 {
                     AccountCode = record.GetValueByKey("AccountCode")?.ToString(),
-                    NavDate = (DateTime)(record.GetTime()?.ToDateTimeUtc()),
+                    NavDate = Convert.ToDateTime(record.GetTime()),
                     LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
                     MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
                     NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
@@ -168,13 +169,17 @@ public class InfluxDBRepository : IInfluxDBRepository
         return resultList;
     }
 
-    public async Task<List<HoldingsInAccount>> QueryDataAsync(string bucket, string org, string accountCode, DateTime fromNavDate, DateTime toNavDate)
+    public async Task<List<HoldingsInAccount>> QueryDataAsync(string bucket, string org, DateTime fromNavDate, DateTime toNavDate, string accountCode, string? name = null)
     {
+        var nameFilter = string.IsNullOrEmpty(name) ? "" : $@"and r.Name == ""{name}""";
+
         var flux = $@"from(bucket:""{bucket}"")
-              |> range(start: {fromNavDate.AddHours(-1):O}, stop: {toNavDate.AddHours(1):O})
-              |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"")";
+          |> range(start: {fromNavDate:yyyy-MM-dd}, stop: {toNavDate:yyyy-MM-dd})
+          |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"" {nameFilter})
+          |> pivot(rowKey:[""_time""], columnKey: [""_field""], valueColumn: ""_value"")";
 
         var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+        SaveFluxTablesToCsv(tables, GetTempFilePath());
 
         var resultList = new List<HoldingsInAccount>();
 
@@ -185,7 +190,7 @@ public class InfluxDBRepository : IInfluxDBRepository
                 var holding = new HoldingsInAccount
                 {
                     AccountCode = record.GetValueByKey("AccountCode")?.ToString(),
-                    NavDate = Convert.ToDateTime(record.GetTime()), // Assuming NavDate is the timestamp
+                    NavDate = Convert.ToDateTime(record.GetTime().ToString()), // Assuming NavDate is the timestamp
                     LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
                     MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
                     NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
@@ -201,6 +206,38 @@ public class InfluxDBRepository : IInfluxDBRepository
         }
 
         return resultList;
+    }
+
+
+
+    public void SaveFluxTablesToCsv(List<FluxTable> tables, string filePath)
+    {
+        if (tables == null || tables.Count == 0)
+            return;
+
+        var csvContent = new StringBuilder();
+
+        // For simplicity, we assume all tables have the same columns.
+        // Extract header from the first table's records.
+        var header = string.Join(";", tables[0].Records[0].Values.Keys);
+        csvContent.AppendLine(header);
+
+        foreach (var table in tables)
+        {
+            foreach (var record in table.Records)
+            {
+                var line = string.Join(";", record.Values.Values);
+                csvContent.AppendLine(line);
+            }
+        }
+
+        System.IO.File.WriteAllText(filePath, csvContent.ToString());
+    }
+
+    string GetTempFilePath()
+    {
+        var fileName = $"FluxTable_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+        return Path.Combine(Path.GetTempPath(), fileName);
     }
 
     public async Task<int> GetRowCountAsync(string bucket, string org)
