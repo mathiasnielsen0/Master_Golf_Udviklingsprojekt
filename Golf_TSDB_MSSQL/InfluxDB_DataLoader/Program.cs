@@ -1,9 +1,9 @@
-﻿using Core.Models;
+﻿using Core.Interfaces;
+using Core.Models;
 using InfluxDB;
 using InfluxDB.Client.Api.Domain;
 using InfluxDB.Client.Core.Flux.Domain;
 using InfluxDB.Client.Writes;
-using MSSQL;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -21,7 +21,7 @@ internal class Program
     {
         return PointData.Measurement("holdings_in_account") // Define measurement name
             .Tag("AccountCode", holdingInAccount.AccountCode) // Add tags
-            .Tag("Name", holdingInAccount.Name)
+            .Tag("SecurityName", holdingInAccount.SecurityName)
             .Field("LocalCurrencyCode", holdingInAccount.LocalCurrencyCode)
             .Field("BondType", holdingInAccount.BondType)
             .Field("HoldingType", holdingInAccount.HoldingType)
@@ -159,7 +159,7 @@ internal class Program
         Console.WriteLine("Starting seeding data to InfluxDB...");
         IInfluxDBRepository InfluxRepo = new InfluxDBRepository();
 
-        IMyDbContext dbContext = new MyDbContext();
+        MSSqlDatabase db = new MSSqlDatabase();
 
         var firstDate = new DateTime(2012, 1, 1); // dbContext.HoldingsInAccounts.Min(i => i.NavDate);
         //var lastDate = new DateTime(2012, 1, 10); // = dbContext.HoldingsInAccounts.Max(i => i.NavDate);
@@ -180,19 +180,7 @@ internal class Program
             var sqlStopwatch = new Stopwatch();
             sqlStopwatch.Start();
 
-            List<Core.Models.HoldingsInAccount> recordsForDate = dbContext.HoldingsInAccounts.Where(i => i.NavDate == date).Select(i => new Core.Models.HoldingsInAccount
-            {
-                AccountCode = i.AccountCode,
-                BondType = i.BondType,
-                HoldingType = i.HoldingType,
-                LocalCurrencyCode = i.LocalCurrencyCode,
-                MarketValue = i.MarketValue,
-                Name = i.Name,
-                NavDate = i.NavDate,
-                NumberOfShare = i.NumberOfShare,
-                Percentage = i.Percentage,
-                ValuationPrice = i.ValuationPrice
-            }).ToList();
+            List<Core.Models.HoldingsInAccount> recordsForDate = await db.GetHoldings(date);
 
             sqlStopwatch.Stop();
             var sqlTime = sqlStopwatch.ElapsedMilliseconds;

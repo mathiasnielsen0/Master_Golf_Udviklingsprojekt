@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
+using Core.Interfaces;
 using InfluxDB;
 using InfluxDB.Client.Api.Domain;
 using Microsoft.AspNetCore.Mvc;
-using MSSQL;
 
 namespace Golf_TSDB_MSSQL.Controllers;
 
@@ -10,25 +10,35 @@ namespace Golf_TSDB_MSSQL.Controllers;
 [Route("[controller]")]
 public class InfluxDBController : ControllerBase
 {
-    private readonly IMyDbContext _myDbContext;
-    private readonly IInfluxDBRepository influxDBRepository;
+    private readonly IDatabase influxDBRepository;
 
-    public InfluxDBController(IMyDbContext myDbContext, IInfluxDBRepository influxDBRepository)
+    public InfluxDBController(InfluxDBRepository influxDBRepository)
     {
         this.influxDBRepository = influxDBRepository;
     }
+   
 
-    [HttpGet(Name = "Results4")]
-    public async Task<IActionResult> Results()
+    [HttpGet("{from}/{to}/{accountCode}", Name = "InfluxHoldings")]
+    public IActionResult Results25(DateTime from, DateTime to, string accountCode)
     {
         var sw = new Stopwatch();
         sw.Start();
 
-        var qr = await influxDBRepository.QueryDataAsync("Holdings", "Sparinvest", new DateTime(2012, 1, 1), new DateTime(2013, 1, 1), "1066", "4.00% Nordea Kredit Realkreditaktieselskab 2041");
+        // TODO: Hent resultater
+        var results = influxDBRepository.GetHoldings(from, to, accountCode);
 
-        // 1066
-        // 4.00 % Nordea Kredit Realkreditaktieselskab 2041
-        //var qr = await influxDBRepository.QueryDataAsync("Holdings", "Sparinvest", "1098", new DateTime(2012, 1, 2));
+        var ellapsed = sw.ElapsedMilliseconds;
+        return Content(ellapsed.ToString());
+    }
+
+    [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "InfluxAverage")]
+    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    {
+        var sw = new Stopwatch();
+        sw.Start();
+
+        // TODO: Hent resultater
+        var results = influxDBRepository.GetAvgPrices(from, to, accountCode, securityId);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());

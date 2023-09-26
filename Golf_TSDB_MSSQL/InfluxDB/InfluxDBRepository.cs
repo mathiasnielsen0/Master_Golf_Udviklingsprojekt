@@ -7,18 +7,23 @@ using Newtonsoft.Json.Linq;
 using Core.Models;
 using InfluxDB.Client.Core.Flux.Domain;
 using System.Text;
+using Core.Interfaces;
 
 namespace InfluxDB;
 
-public class InfluxDBRepository : IInfluxDBRepository
+public class InfluxDBRepository : IInfluxDBRepository, IDatabase
 {
     private readonly InfluxDBClient _client;
+    private readonly string bucket;
+    private readonly string org;
 
     public InfluxDBRepository()
     {
         // Insert API Token here:
         _client = new InfluxDBClient("http://localhost:8086",
-            "LdTBtNS_Le7Di866AtiBEjM8_8uIT-s4tRN_4wTRW0g58iXFnUIDgykRKmAtXWGJTmVhZqaiHJJNXJGF53DSeA==");
+            "23yazajVUf_Qk4jfQ4gIwejs6mbby5JcsPArvpjKmqfWlIGRhUvDYFoNVCuM_KWTJciz9QyDltj6Hxw1ErF_8A==");
+        bucket = "Holdings";
+        org = "Sparinvest"; 
     }
 
     public InfluxDBRepository(string url, string token)
@@ -51,7 +56,8 @@ public class InfluxDBRepository : IInfluxDBRepository
     {
         return PointData.Measurement("holdings_in_account") // Define measurement name
             .Tag("AccountCode", holdingInAccount.AccountCode) // Add tags
-            .Tag("Name", holdingInAccount.Name)
+            .Tag("SecurityId", holdingInAccount.SecurityId.ToString())
+            .Field("SecurityName", holdingInAccount.SecurityName)
             .Field("LocalCurrencyCode", holdingInAccount.LocalCurrencyCode)
             .Field("BondType", holdingInAccount.BondType)
             .Field("HoldingType", holdingInAccount.HoldingType)
@@ -155,7 +161,8 @@ public class InfluxDBRepository : IInfluxDBRepository
                     LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
                     MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
                     NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
-                    Name = record.GetValueByKey("Name")?.ToString(),
+                    SecurityName = record.GetValueByKey("SecurityName")?.ToString(),
+                    SecurityId = Convert.ToInt32(record.GetValueByKey("SecurityId")?.ToString()),
                     BondType = record.GetValueByKey("BondType")?.ToString(),
                     HoldingType = record.GetValueByKey("HoldingType")?.ToString(),
                     ValuationPrice = Convert.ToDecimal(record.GetValueByKey("ValuationPrice")),
@@ -194,7 +201,8 @@ public class InfluxDBRepository : IInfluxDBRepository
                     LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
                     MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
                     NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
-                    Name = record.GetValueByKey("Name")?.ToString(),
+                    SecurityName = record.GetValueByKey("SecurityName")?.ToString(),
+                    SecurityId = Convert.ToInt32(record.GetValueByKey("SecurityId")?.ToString()),
                     BondType = record.GetValueByKey("BondType")?.ToString(),
                     HoldingType = record.GetValueByKey("HoldingType")?.ToString(),
                     ValuationPrice = Convert.ToDecimal(record.GetValueByKey("ValuationPrice")),
@@ -258,5 +266,59 @@ public class InfluxDBRepository : IInfluxDBRepository
         return 0;
     }
 
+    public async Task<List<HoldingsInAccount>> GetHoldings(DateTime from, DateTime to, string accountCode)
+    {
+        var flux = $@"from(bucket:""{bucket}"")
+        |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+        |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"")
+        |> pivot(rowKey:[""_time""], columnKey: [""_field""], valueColumn: ""_value"")";
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+        var resultList = new List<HoldingsInAccount>();
+
+        if (tables != null && tables.Count > 0)
+        {
+            foreach (var record in tables[0].Records)
+            {
+                var holding = new HoldingsInAccount
+                {
+                    AccountCode = record.GetValueByKey("AccountCode")?.ToString(),
+                    NavDate = Convert.ToDateTime(record.GetTime().ToString()), // Assuming NavDate is the timestamp
+                    LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
+                    MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
+                    NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
+                    SecurityName = record.GetValueByKey("SecurityName")?.ToString(),
+                    SecurityId = Convert.ToInt32(record.GetValueByKey("SecurityId")?.ToString()),
+                    BondType = record.GetValueByKey("BondType")?.ToString(),
+                    HoldingType = record.GetValueByKey("HoldingType")?.ToString(),
+                    ValuationPrice = Convert.ToDecimal(record.GetValueByKey("ValuationPrice")),
+                    Percentage = Convert.ToDecimal(record.GetValueByKey("Percentage"))
+                };
+
+                resultList.Add(holding);
+            }
+        }
+
+        return resultList;
+    }
+
+
+    public async Task<decimal> GetAvgPrices(DateTime from, DateTime to, string accountCode, int SecurityId)
+    {
+        var flux = $@"from(bucket:""{bucket}"")
+        |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+        |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"" and r.SecurityId == ""{SecurityId}"")
+        |> mean(column: ""ValuationPrice"")";
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+        if (tables != null && tables.Count > 0)
+        {
+            return Convert.ToDecimal(tables[0].Records[0]);
+        }
+
+        return 0m;
+    }
 
 }

@@ -1,5 +1,5 @@
+using Core.Interfaces;
 using InfluxDB;
-using MSSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<IMyDbContext, MyDbContext>();
-builder.Services.AddSingleton<IInfluxDBRepository, InfluxDBRepository>();
+builder.Services.AddSingleton<MSSqlDatabase>();
+builder.Services.AddSingleton<InfluxDBRepository>();
 
 var app = builder.Build();
 

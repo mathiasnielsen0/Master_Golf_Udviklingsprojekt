@@ -1,21 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IyLdB68rm8qeaYamN4HEwbEBlrlVBUs5VImkYRxEtbBEc4w3Icda51h/s1wy/CfNkZGNr/uLfUsJOobbsMIa2w==",
+  "dgSpecHash": "WsOykER4UnVTnz70Xov5UJAE3ouQg0HLUUgXybL3MjJeD7yPxYRYgqTGlssGyOtTvxH7Wy8ZUy/TKYEDMzHWwA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aho\\Dokumenter\\GitHub\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+  "projectFilePath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
   "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://maven/nexus/repository/itcm_nuget_group/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://maven/nexus/repository/itcm_templates/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    }
-  ]
+  "logs": []
 }
