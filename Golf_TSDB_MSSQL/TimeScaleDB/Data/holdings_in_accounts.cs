@@ -10,9 +10,11 @@ public class holdings_in_accounts_t
     public string? localcurrencycode { get; set; }	
     public double? marketvalue { get; set; }	
     public string? numberofshare { get; set; }	
-    public string? securityid { get; set; }	
+    public int? securityid { get; set; }	
     public string? securityname { get; set; }	
+    public string? bondtype { get; set; }	
     public string? name { get; set; }	
     public string? holdingtype { get; set; }	
     public double? percentage { get; set; }
+    public double? valuationprice { get; set; }
 }

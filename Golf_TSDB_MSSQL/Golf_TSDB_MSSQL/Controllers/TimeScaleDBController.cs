@@ -16,27 +16,27 @@ public class TimeScaleDBController : ControllerBase
         _timeScaleDbContext = timeScaleDbContext;
     }
 
-    [HttpGet("{from}/{to}/{accountCode}", Name = "MSSqlHoldings")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode)
+    [HttpGet("{from}/{to}/{accountCode}", Name = "TimescaleHoldings")]
+    public async Task<IActionResult> Results45(DateTime from, DateTime to, string accountCode)
     {
         var sw = new Stopwatch();
         sw.Start();
 
         // TODO: Hent resultater
-        var results = _timeScaleDbContext.GetHoldings(from, to, accountCode);
+        var results = await _timeScaleDbContext.GetHoldings(from, to, accountCode);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
     }
 
-    [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "MSSqlAverage")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "TimescaleAverage")]
+    public async Task<IActionResult> Results45(DateTime from, DateTime to, string accountCode, int securityId)
     {
         var sw = new Stopwatch();
         sw.Start();
 
         // TODO: Hent resultater
-        var results = _timeScaleDbContext.GetAvgPrices(from, to, accountCode, securityId);
+        var results =await  _timeScaleDbContext.GetAvgPrices(from, to, accountCode, securityId);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
