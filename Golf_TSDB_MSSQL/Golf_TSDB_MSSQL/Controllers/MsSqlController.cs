@@ -31,7 +31,7 @@ public class MsSqlController : ControllerBase
     }
 
     [HttpGet("{from}/{to}/{accountCode}", Name = "MSSqlHoldings")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode)
+    public async Task<IActionResult> Results45(DateTime from, DateTime to, string accountCode)
     {
         var sw = new Stopwatch();
         sw.Start();
@@ -44,7 +44,7 @@ public class MsSqlController : ControllerBase
     }
 
     [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "MSSqlAverage")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    public async Task<IActionResult> Results45(DateTime from, DateTime to, string accountCode, int securityId)
     {
         var sw = new Stopwatch();
         sw.Start();

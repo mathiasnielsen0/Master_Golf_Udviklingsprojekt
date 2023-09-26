@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Golf_TSDB_MSSQL", "Golf_TSDB_MSSQL\Golf_TSDB_MSSQL.csproj", "{F84D7E82-9A2C-49B9-9179-B53B024AD15A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{78E56E02-3AD0-49AE-A748-31C7357F3046}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSSQL", "MSSQL\MSSQL.csproj", "{94129CB9-36F3-442D-B596-297DC1F6C080}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfluxDB", "InfluxDB\InfluxDB.csproj", "{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrometheusDB", "PrometheusDB\PrometheusDB.csproj", "{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfluxDB_DataLoader", "InfluxDB_DataLoader\InfluxDB_DataLoader.csproj", "{E73755EF-0D64-4807-A31A-F50D13FC2434}"
 EndProject
@@ -20,16 +16,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeScaleDB", "TimeScaleDB\TimeScaleDB.csproj", "{0468FD70-CDA4-4857-885B-AFD43EC38E6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Golf_TSDB_MSSQL", "Golf_TSDB_MSSQL\Golf_TSDB_MSSQL.csproj", "{7DD57E1F-28B7-4315-8BB5-E197137E01E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{78E56E02-3AD0-49AE-A748-31C7357F3046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78E56E02-3AD0-49AE-A748-31C7357F3046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78E56E02-3AD0-49AE-A748-31C7357F3046}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,14 +38,18 @@ Global
 		{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B99FBBA-D9DA-4FBF-80B8-265B780956A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0524AAD1-6DC5-49BD-B508-9DB21B0FEF6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E73755EF-0D64-4807-A31A-F50D13FC2434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0468FD70-CDA4-4857-885B-AFD43EC38E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0468FD70-CDA4-4857-885B-AFD43EC38E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0468FD70-CDA4-4857-885B-AFD43EC38E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0468FD70-CDA4-4857-885B-AFD43EC38E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD57E1F-28B7-4315-8BB5-E197137E01E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD57E1F-28B7-4315-8BB5-E197137E01E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD57E1F-28B7-4315-8BB5-E197137E01E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD57E1F-28B7-4315-8BB5-E197137E01E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

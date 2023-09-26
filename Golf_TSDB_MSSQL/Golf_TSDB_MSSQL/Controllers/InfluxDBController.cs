@@ -19,7 +19,7 @@ public class InfluxDBController : ControllerBase
    
 
     [HttpGet("{from}/{to}/{accountCode}", Name = "InfluxHoldings")]
-    public IActionResult Results25(DateTime from, DateTime to, string accountCode)
+    public async Task<IActionResult> Results25(DateTime from, DateTime to, string accountCode)
     {
         var sw = new Stopwatch();
         sw.Start();
@@ -32,7 +32,7 @@ public class InfluxDBController : ControllerBase
     }
 
     [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "InfluxAverage")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    public async Task<IActionResult> Results45(DateTime from, DateTime to, string accountCode, int securityId)
     {
         var sw = new Stopwatch();
         sw.Start();

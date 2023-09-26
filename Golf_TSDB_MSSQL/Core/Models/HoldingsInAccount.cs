@@ -8,7 +8,7 @@ public class HoldingsInAccount
     public string LocalCurrencyCode { get; set; } // LocalCurrencyCode (length: 3)
     public decimal? MarketValue { get; set; } // MarketValue
     public decimal? NumberOfShare { get; set; } // NumberOfShare
-    public int SecurityId { get; set; }
+    public int? SecurityId { get; set; }
     public string SecurityName { get; set; }
     public string BondType { get; set; } // BondType (length: 250)
     public string HoldingType { get; set; } // HoldingType (length: 50)

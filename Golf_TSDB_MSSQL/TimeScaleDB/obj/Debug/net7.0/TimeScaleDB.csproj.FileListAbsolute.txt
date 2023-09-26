@@ -1,0 +1,15 @@
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\bin\Debug\net7.0\TimeScaleDB.deps.json
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\bin\Debug\net7.0\TimeScaleDB.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\bin\Debug\net7.0\TimeScaleDB.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\bin\Debug\net7.0\Core.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\bin\Debug\net7.0\Core.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.csproj.AssemblyReference.cache
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.AssemblyInfoInputs.cache
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.AssemblyInfo.cs
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.csproj.CoreCompileInputs.cache
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.csproj.CopyComplete
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\refint\TimeScaleDB.dll
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\TimeScaleDB.pdb
+C:\Users\mathi\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TimeScaleDB\obj\Debug\net7.0\ref\TimeScaleDB.dll

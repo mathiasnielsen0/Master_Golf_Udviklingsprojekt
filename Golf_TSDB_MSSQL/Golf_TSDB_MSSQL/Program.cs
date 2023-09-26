@@ -1,5 +1,7 @@
 using Core.Interfaces;
 using InfluxDB;
+using TSDB2;
+using TSDB2.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<MSSqlDatabase>();
+builder.Services.AddSingleton<TimeScaleDbContext>();
+builder.Services.AddSingleton<TimeScaleDb>();
 builder.Services.AddSingleton<InfluxDBRepository>();
 
 var app = builder.Build();
