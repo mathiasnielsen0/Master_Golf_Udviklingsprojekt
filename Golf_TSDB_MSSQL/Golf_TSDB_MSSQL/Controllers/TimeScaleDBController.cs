@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using TSDB2;
 using TSDB2.Data;
 
 namespace Golf_TSDB_MSSQL.Controllers;
@@ -8,25 +9,37 @@ namespace Golf_TSDB_MSSQL.Controllers;
 [Route("[controller]")]
 public class TimeScaleDBController : ControllerBase
 {
-    private readonly ITimeScaleDbContext _timeScaleDbContext;
+    private readonly TimeScaleDb _timeScaleDbContext;
 
-    public TimeScaleDBController(ITimeScaleDbContext timeScaleDbContext)
+    public TimeScaleDBController(TimeScaleDb timeScaleDbContext)
     {
         _timeScaleDbContext = timeScaleDbContext;
     }
 
-    [HttpGet(Name = "Results2")]
-    public IActionResult Results()
+    [HttpGet("{from}/{to}/{accountCode}", Name = "MSSqlHoldings")]
+    public IActionResult Results45(DateTime from, DateTime to, string accountCode)
     {
         var sw = new Stopwatch();
         sw.Start();
 
-        var startDate = new DateTime(2014, 12, 1);
-        
         // TODO: Hent resultater
-        var results = _timeScaleDbContext.holdings_in_accounts.Max(x => x.navdate);
-        
+        var results = _timeScaleDbContext.GetHoldings(from, to, accountCode);
+
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
     }
+
+    [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "MSSqlAverage")]
+    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    {
+        var sw = new Stopwatch();
+        sw.Start();
+
+        // TODO: Hent resultater
+        var results = _timeScaleDbContext.GetAvgPrices(from, to, accountCode, securityId);
+
+        var ellapsed = sw.ElapsedMilliseconds;
+        return Content(ellapsed.ToString());
+    }
+
 }

@@ -4,7 +4,7 @@ namespace TSDB2.Data;
 
 public interface ITimeScaleDbContext : IDisposable
 {
-    public DbSet<holdings_in_accounts> holdings_in_accounts { get; set; } // holdings_in_accounts
+    public DbSet<holdings_in_accounts_t> holdings_in_accounts_t { get; set; } // holdings_in_accounts
 
     
     int SaveChanges();
@@ -57,5 +57,5 @@ public class TimeScaleDbContext : DbContext, ITimeScaleDbContext
         }
     }
     
-    public DbSet<holdings_in_accounts> holdings_in_accounts { get; set; } // Holding
+    public DbSet<holdings_in_accounts_t> holdings_in_accounts_t { get; set; } // Holding
 }

@@ -9,8 +9,13 @@ public class TimeScaleDb : IDatabase
     {
         
     }
+    
+    public Task<List<HoldingsInAccount>> GetHoldings(DateTime from, DateTime to, string accountCode)
+    {
+        throw new NotImplementedException();
+    }
 
-    public Task<PriceQueryModel> GetPrices(DateTime fra, DateTime til, string productCode)
+    public Task<decimal> GetAvgPrices(DateTime from, DateTime to, string accountCode, int SecurityId)
     {
         throw new NotImplementedException();
     }
