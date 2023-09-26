@@ -1,6 +1,6 @@
 using System.Diagnostics;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using MSSQL;
 
 namespace Golf_TSDB_MSSQL.Controllers;
 
@@ -8,11 +8,11 @@ namespace Golf_TSDB_MSSQL.Controllers;
 [Route("[controller]")]
 public class MsSqlController : ControllerBase
 {
-    private readonly IMyDbContext _myDbContext;
+    private readonly IDatabase mSSqlDatabase;
 
-    public MsSqlController(IMyDbContext myDbContext)
+    public MsSqlController(MSSqlDatabase mSSqlDatabase)
     {
-        _myDbContext = myDbContext;
+        this.mSSqlDatabase = mSSqlDatabase;
     }
 
     [HttpGet(Name = "Results1")]
@@ -21,11 +21,40 @@ public class MsSqlController : ControllerBase
         var sw = new Stopwatch();
         sw.Start();
 
-        
+        var startDate = new DateTime(2014, 12, 1);
+
         // TODO: Hent resultater
-        var results = _myDbContext.Assets.Max(x => x.IssueDate);
+        var results = mSSqlDatabase.GetHoldings(startDate, startDate.AddMonths(1), "1080");
         
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
     }
+
+    [HttpGet("{from}/{to}/{accountCode}", Name = "MSSqlHoldings")]
+    public IActionResult Results45(DateTime from, DateTime to, string accountCode)
+    {
+        var sw = new Stopwatch();
+        sw.Start();
+
+        // TODO: Hent resultater
+        var results = mSSqlDatabase.GetHoldings(from, to, accountCode);
+
+        var ellapsed = sw.ElapsedMilliseconds;
+        return Content(ellapsed.ToString());
+    }
+
+    [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "MSSqlAverage")]
+    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    {
+        var sw = new Stopwatch();
+        sw.Start();
+
+        // TODO: Hent resultater
+        var results = mSSqlDatabase.GetAvgPrices(from, to, accountCode, securityId);
+
+        var ellapsed = sw.ElapsedMilliseconds;
+        return Content(ellapsed.ToString());
+    }
+
+
 }

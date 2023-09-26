@@ -1,0 +1,6 @@
+# Ignorer DLL-filer
+*.dll
+
+# Ignorer mapper kaldet "bin" og "obj"
+/bin/
+/obj/

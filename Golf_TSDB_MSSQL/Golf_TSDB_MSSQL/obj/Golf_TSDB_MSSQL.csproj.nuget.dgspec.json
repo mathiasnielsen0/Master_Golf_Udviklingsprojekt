@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj": {}
+    "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+    "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\obj\\",
+        "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ahoadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,21 +60,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj": {
+    "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj",
         "projectName": "Golf_TSDB_MSSQL",
-        "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj",
-        "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\obj\\",
+        "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL.csproj",
+        "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Golf_TSDB_MSSQL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ahoadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,23 +87,24 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.307\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
               },
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj"
               },
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj"
               },
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj"
               }
             }
           }
@@ -140,21 +151,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj": {
+    "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj",
         "projectName": "InfluxDB",
-        "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj",
-        "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\obj\\",
+        "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj",
+        "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ahoadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -168,8 +184,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
               }
             }
           }
@@ -183,6 +199,16 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "InfluxDB.Client": {
+              "target": "Package",
+              "version": "[4.13.0, )"
+            },
+            "NodaTime": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -199,21 +225,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
+    "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj",
         "projectName": "MSSQL",
-        "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj",
-        "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\obj\\",
+        "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj",
+        "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ahoadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -227,8 +258,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
               }
             }
           }
@@ -243,17 +274,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[7.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.Relational": {
-              "target": "Package",
-              "version": "[7.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[7.0.10, )"
+              "version": "[5.1.1, )"
             }
           },
           "imports": [
@@ -272,21 +295,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj": {
+    "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj",
-        "projectName": "TimeScaleDB",
-        "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj",
-        "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\obj\\",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+        "projectName": "PrometheusDB",
+        "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+        "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ahoadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -300,8 +328,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
+              "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
               }
             }
           }
@@ -315,12 +343,6 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "dependencies": {
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
-              "target": "Package",
-              "version": "[7.0.4, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -337,7 +359,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     }

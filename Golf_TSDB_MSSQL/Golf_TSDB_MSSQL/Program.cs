@@ -1,5 +1,5 @@
-using MSSQL;
-using TSDB2.Data;
+using Core.Interfaces;
+using InfluxDB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<IMyDbContext, MyDbContext>();
-builder.Services.AddDbContext<ITimeScaleDbContext, TimeScaleDbContext>();
+builder.Services.AddSingleton<MSSqlDatabase>();
+builder.Services.AddSingleton<InfluxDBRepository>();
 
 var app = builder.Build();
 

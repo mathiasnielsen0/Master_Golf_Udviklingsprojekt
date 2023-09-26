@@ -7,8 +7,10 @@ namespace Golf_TSDB_MSSQL.Controllers;
 [Route("[controller]")]
 public class TsDb2Controller : ControllerBase
 {
+
     public TsDb2Controller()
     {
+        
     }
 
     [HttpGet(Name = "Results3")]
@@ -16,9 +18,9 @@ public class TsDb2Controller : ControllerBase
     {
         var sw = new Stopwatch();
         sw.Start();
-        
+
         // TODO: Hent resultater
-        
+
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
     }
