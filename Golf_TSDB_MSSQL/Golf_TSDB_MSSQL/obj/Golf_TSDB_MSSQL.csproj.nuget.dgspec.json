@@ -103,8 +103,8 @@
               "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj": {
                 "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\MSSQL\\MSSQL.csproj"
               },
-              "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj": {
-                "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj"
+              "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj": {
+                "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj"
               }
             }
           }
@@ -299,14 +299,14 @@
         }
       }
     },
-    "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj": {
+    "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
-        "projectName": "PrometheusDB",
-        "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj",
+        "projectName": "TimeScaleDB",
+        "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\TimeScaleDB.csproj",
         "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\obj\\",
+        "outputPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\TimeScaleDB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -343,6 +343,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
