@@ -1,0 +1,15 @@
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\bin\Debug\net7.0\TestRunner.exe
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\bin\Debug\net7.0\TestRunner.deps.json
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\bin\Debug\net7.0\TestRunner.runtimeconfig.json
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\bin\Debug\net7.0\TestRunner.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\bin\Debug\net7.0\TestRunner.pdb
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.csproj.AssemblyReference.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.AssemblyInfoInputs.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.AssemblyInfo.cs
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.csproj.CoreCompileInputs.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\refint\TestRunner.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.pdb
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\TestRunner.genruntimeconfig.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\TestRunner\obj\Debug\net7.0\ref\TestRunner.dll

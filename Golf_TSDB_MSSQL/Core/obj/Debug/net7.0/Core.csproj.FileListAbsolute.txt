@@ -22,3 +22,15 @@ C:\Users\snush\source\repos\mathiasnielsen0\Master_Golf_Udviklingsprojekt\Golf_T
 C:\Users\snush\source\repos\mathiasnielsen0\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\refint\Core.dll
 C:\Users\snush\source\repos\mathiasnielsen0\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.pdb
 C:\Users\snush\source\repos\mathiasnielsen0\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\ref\Core.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\bin\Debug\net7.0\Core.deps.json
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\bin\Debug\net7.0\Core.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\bin\Debug\net7.0\Core.pdb
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.csproj.AssemblyReference.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.AssemblyInfoInputs.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.AssemblyInfo.cs
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.csproj.CoreCompileInputs.cache
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\refint\Core.dll
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\Core.pdb
+C:\Users\ahoadmin\source\repos\Master_Golf_Udviklingsprojekt\Golf_TSDB_MSSQL\Core\obj\Debug\net7.0\ref\Core.dll
