@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using InfluxDB;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

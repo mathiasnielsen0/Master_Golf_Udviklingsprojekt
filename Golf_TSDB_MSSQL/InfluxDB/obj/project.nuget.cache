@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ocI5K7G7T11LUDlhW+/n9D725ZCYVz6y+uE/EI01+y8by1OmEQlpGaQbofvNrExvjVy4kW2QtLth9b7AyfAplw==",
+  "dgSpecHash": "gFffSuEni+/bgX6NcsFIwJ7qe4/+Q+MJJM4nVzH+yspPWvQvnj7xhPQL1uLF2Y4vnjcxaLVdOBUlG9T/2LtzOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj",
+  "projectFilePath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\InfluxDB\\InfluxDB.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ahoadmin\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
     "C:\\Users\\ahoadmin\\.nuget\\packages\\influxdb.client\\4.13.0\\influxdb.client.4.13.0.nupkg.sha512",

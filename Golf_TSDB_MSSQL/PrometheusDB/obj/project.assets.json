@@ -34,11 +34,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+      "projectUniqueName": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
       "projectName": "PrometheusDB",
-      "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
+      "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\PrometheusDB.csproj",
       "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\obj\\",
+      "outputPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\PrometheusDB\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -60,8 +60,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\ahoadmin\\Source\\Repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
+            "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj"
             }
           }
         }
