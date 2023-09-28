@@ -4,7 +4,8 @@
     {
         var testRunner = new TestRunner();
 
+        testRunner.RunTests("TimeScaleDB");
         //testRunner.RunTests("InfluxDB");
-        testRunner.RunTests("MSSql");
+        //testRunner.RunTests("MSSql");
     }
 }
