@@ -12,7 +12,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<MSSqlDatabase>();
-builder.Services.AddSingleton<TimeScaleDbContext>();
 builder.Services.AddSingleton<TimeScaleDb>();
 builder.Services.AddSingleton<InfluxDBRepository>();
 
