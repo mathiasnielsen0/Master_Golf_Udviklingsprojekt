@@ -2,10 +2,13 @@
 {
     private static void Main(string[] args)
     {
-        var testRunner = new TestRunner();
+        Console.WriteLine("Please enter PORT for API: ");
+        var port = int.Parse(Console.ReadLine());
+        var testRunner = new TestRunner(port);
+        
 
         testRunner.RunTests("TimeScaleDB");
+        testRunner.RunTests("MSSql");
         //testRunner.RunTests("InfluxDB");
-        //testRunner.RunTests("MSSql");
     }
 }

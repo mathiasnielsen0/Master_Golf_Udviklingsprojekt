@@ -6,14 +6,16 @@ using System.Globalization;
 
 public class TestRunner
 {
-    private static readonly string baseUrl = "http://localhost:5184"; // URL to the API
+    private readonly string _baseUrl; // URL to the API
     private readonly HttpClient client;
     private readonly string[] accountCodes;
     private readonly int[] securityIds;
 
-    public TestRunner()
+    public TestRunner(int port) 
     {
+        _baseUrl = $"http://localhost:{port}";
         client = new HttpClient();
+        
     
         // The 30 most frequent SecurityIds
         securityIds = new[]
@@ -73,7 +75,7 @@ public class TestRunner
 
     private string CallApi(string endpoint, DateTime from, DateTime to, string accountCode, int? securityId = null)
     {
-        string url = $"{baseUrl}/{endpoint}/{from:yyyy-MM-dd}/{to:yyyy-MM-dd}/{accountCode}";
+        string url = $"{_baseUrl}/{endpoint}/{from:yyyy-MM-dd}/{to:yyyy-MM-dd}/{accountCode}";
 
         if (securityId.HasValue)
         {

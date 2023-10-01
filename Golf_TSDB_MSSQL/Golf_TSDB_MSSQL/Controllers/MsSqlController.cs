@@ -22,7 +22,7 @@ public class MsSqlController : ControllerBase
         sw.Start();
 
         // TODO: Hent resultater
-        var results = mSSqlDatabase.GetHoldings(from, to, accountCode);
+        var results = await mSSqlDatabase.GetHoldings(from, to, accountCode);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
@@ -35,7 +35,7 @@ public class MsSqlController : ControllerBase
         sw.Start();
 
         // TODO: Hent resultater
-        var results = mSSqlDatabase.GetAvgPrices(from, to, accountCode, securityId);
+        var results = await mSSqlDatabase.GetAvgPrices(from, to, accountCode, securityId);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());

@@ -25,7 +25,7 @@ public class InfluxDBController : ControllerBase
         sw.Start();
 
         // TODO: Hent resultater
-        var results = influxDBRepository.GetHoldings(from, to, accountCode);
+        var results = await influxDBRepository.GetHoldings(from, to, accountCode);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
@@ -38,7 +38,7 @@ public class InfluxDBController : ControllerBase
         sw.Start();
 
         // TODO: Hent resultater
-        var results = influxDBRepository.GetAvgPrices(from, to, accountCode, securityId);
+        var results = await influxDBRepository.GetAvgPrices(from, to, accountCode, securityId);
 
         var ellapsed = sw.ElapsedMilliseconds;
         return Content(ellapsed.ToString());
