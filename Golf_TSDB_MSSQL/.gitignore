@@ -2,5 +2,15 @@
 *.dll
 
 # Ignorer mapper kaldet "bin" og "obj"
-/bin/
-/obj/
+*.suo
+*.user
+_ReSharper.*
+**/bin/*
+**/obj/*
+packages
+/**/bin/**/*
+/./**/bin/**/*
+./**/bin/**/*
+**/bin/**/*
+*/bin/**/*
+bin/**/*
