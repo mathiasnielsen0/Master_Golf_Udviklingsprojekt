@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Globalization;
+using CLI.TestRunner;
 using Core.Interfaces;
 
 public class TestRunner
@@ -12,11 +13,15 @@ public class TestRunner
     private readonly string[] accountCodes;
     private readonly int[] securityIds;
     private readonly Stopwatch _sw;
+    private readonly DateTime start;
+    private readonly DateTime end;
 
     public TestRunner(IDatabase dbToTest) 
     {
         _dbToTest = dbToTest;
         _sw = new Stopwatch();
+        start = new DateTime(2012, 1, 1);
+        end = new DateTime(2012, 6, 1);
 
         // The 30 most frequent SecurityIds
         securityIds = new[]
@@ -41,20 +46,40 @@ public class TestRunner
     /// Returns number of milliseconds ellapsed
     /// </summary>
     /// <returns></returns>
-    public async Task<long> RunTests()
+    public async Task<ResultModel> RunTests()
     {
-        var results = new List<string>();
-        results.Add($"Start;End;AccountCode;; Time ms");
-        var resultsAvg = new List<string>();
-        resultsAvg.Add($"Start;End;AccountCode;SecurityId; Time ms");
+        var rm = new ResultModel()
+        {
+            DbType = _dbToTest.GetType().FullName,
+        };
+        
+        for (int i = 0; i < accountCodes.Length; i++) 
+        {
+            Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {i} / {accountCodes.Length}. Ellapsed - Holdings:{rm.HoldingsMs}ms, Avg: {rm.HoldingsMs}");
+            _sw.Restart();
+            await _dbToTest.GetHoldings( start, end, accountCodes[i]);
+            rm.HoldingsMs += _sw.ElapsedMilliseconds;
 
+            foreach (var sec in securityIds)
+            {
+                _sw.Restart();
+                await _dbToTest.GetAvgPrices(start, end, accountCodes[i], sec);
+                rm.AvgMs += _sw.ElapsedMilliseconds;
+            }
+        }
+
+        return rm;
+        
+
+        
+        
         DateTime startDate = DateTime.ParseExact("2012-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
-        DateTime endDate = DateTime.ParseExact("2012-11-30", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        DateTime endDate = DateTime.ParseExact("2012-06-30", "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-        var monthsToRunPerLoop = 3;
+        var monthsToRunPerLoop = 7;
         var totalRuns = Math.Ceiling((decimal)accountCodes.Count() * (((endDate.Year - startDate.Year) * 12) + monthsToRunPerLoop + endDate.Month - startDate.Month) / monthsToRunPerLoop) - 4;
         int runCounter = 0;
-
+        
         while (startDate <= endDate)
         {
             DateTime to = startDate.AddMonths(monthsToRunPerLoop).AddDays(-1);
@@ -66,7 +91,7 @@ public class TestRunner
                 await _dbToTest.GetHoldings( startDate, to, accountCode);
                 _sw.Stop();
                 
-                //Console.WriteLine($"Run GetHoldings with {startDate.ToShortDateString()} - {to.ToShortDateString()}, Acc. {accountCode}. Ellapsed {_sw.ElapsedMilliseconds}ms");
+                Console.WriteLine($"Run GetHoldings with {startDate.ToShortDateString()} - {to.ToShortDateString()}, Acc. {accountCode}. Ellapsed {_sw.ElapsedMilliseconds}ms");
 
                 foreach (var securityId in securityIds)
                 {
@@ -74,7 +99,7 @@ public class TestRunner
                     await _dbToTest.GetAvgPrices(startDate, to, accountCode, securityId);
                     _sw.Stop();
                     
-                    //Console.WriteLine($"Run GetAvgPrices with {startDate.ToShortDateString()} - {to.ToShortDateString()}, Acc. {accountCode}, secId. {securityId}. Ellapsed {_sw.ElapsedMilliseconds}ms");
+                    Console.WriteLine($"Run GetAvgPrices with {startDate.ToShortDateString()} - {to.ToShortDateString()}, Acc. {accountCode}, secId. {securityId}. Ellapsed {_sw.ElapsedMilliseconds}ms");
                 }
 
                 Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {runCounter++} / {totalRuns}. Ellapsed: {_sw.ElapsedMilliseconds - startEllapsed}ms");
@@ -87,6 +112,5 @@ public class TestRunner
         var ellapsed = _sw.ElapsedMilliseconds;
         _sw.Reset();
 
-        return ellapsed;
     }
 }

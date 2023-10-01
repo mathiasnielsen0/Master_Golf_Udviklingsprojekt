@@ -1,47 +1,49 @@
-﻿using System.Threading.Channels;
+﻿using CLI.TestRunner;
+using Core.Interfaces;
 using InfluxDB;
 using TSDB2;
+
+List<IDatabase> dbsToTest = new List<IDatabase>(); 
 
 Console.WriteLine("Running testrunner CLI");
 
 Console.WriteLine("Use MSSQLDB? Enter y/n");
-var useMsSql = Console.ReadLine() == "y";
+if (Console.ReadLine() == "y") dbsToTest.Add(new MSSqlDatabase()); 
 Console.WriteLine("Use TimeScaleDb? Enter y/n");
-var useTimeScaleDb = Console.ReadLine() == "y";
+if (Console.ReadLine() == "y") dbsToTest.Add(new TimeScaleDb()); 
 Console.WriteLine("Use InfluxDBRepository? Enter y/n");
-var useInfluxDb = Console.ReadLine() == "y";
+if (Console.ReadLine() == "y") dbsToTest.Add(new InfluxDBRepository()); 
 
 Console.WriteLine("How many runs? Approx. 30 sec each run pr. database");
 var numOfRuns = int.Parse(Console.ReadLine());
 
-
-var timeScaletestrunner = new TestRunner(new TimeScaleDb());
-var msSqltestRunner = new TestRunner(new MSSqlDatabase());
-var influxDbRunner = new TestRunner(new InfluxDBRepository());
-
-List<long> msSqltestRunnerTimings = new List<long>();
-List<long> timeScaletestrunnerTimings = new List<long>();
-List<long> influxDbRunnerTimings = new List<long>();
+var results = new List<ResultModel>();
 
 for (int i = 0; i < numOfRuns; i++)
 {
     Console.WriteLine($"RUNNING CHOSEN DATABASES: {i}/{numOfRuns}");
-    if (useMsSql) msSqltestRunnerTimings.Add(await msSqltestRunner.RunTests());    
-    if (useTimeScaleDb) timeScaletestrunnerTimings.Add(await timeScaletestrunner.RunTests());
-    if (useInfluxDb) influxDbRunnerTimings.Add(await influxDbRunner.RunTests());    
+    foreach (var db in dbsToTest)
+        results.Add(await new TestRunner(db).RunTests());
 }
 
-var fileStrings = new List<string>(numOfRuns + 10);
-fileStrings.Add($"MsSql;TimescaleDb;InfluxDb;");
-for (int i = 0; i < numOfRuns; i++)
+PrintFiles(results);
+
+void PrintFiles(List<ResultModel> results)
 {
-    var str = "";
-    if (useMsSql) str += msSqltestRunnerTimings[i] + ";";
-    if (useTimeScaleDb) str += timeScaletestrunnerTimings[i] + ";";
-    if (useInfluxDb) str += influxDbRunnerTimings[i] + ";";
+    var dbResultsGroupings = results.GroupBy(x => x.DbType).ToList();
     
-    fileStrings.Add(str);
-}
+    foreach (var dbResults in dbResultsGroupings)
+    {
+        var csvLines = new List<string>();
+        csvLines.Add(dbResults.Key);
+        csvLines.Add("GetHoldings;GetAvgValuationPrice");
+        var dbRes = dbResults.ToList();
+        
+        foreach (var r in dbRes)
+            csvLines.Add($"{r.HoldingsMs};{r.AvgMs}");
 
-Console.WriteLine("Writing to files");
-File.WriteAllLines($"Testrun_{DateTime.Now.ToFileTime()}.csv", fileStrings.Select(x => x.ToString()).ToList());
+        File.WriteAllLines($"Testrun_{dbResults.Key}_{DateTime.Now.ToFileTime()}.csv", csvLines);
+    }
+    
+    Console.WriteLine("Writing to files");
+}
