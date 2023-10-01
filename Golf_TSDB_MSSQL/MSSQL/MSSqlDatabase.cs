@@ -40,6 +40,7 @@ public class MSSqlDatabase : IDatabase
 
         while (await reader.ReadAsync())
         {
+            var securityId = reader["SecurityId"] == DBNull.Value ? -1 : Convert.ToInt32(reader["SecurityId"] ?? -1);
             holdings.Add(new HoldingsInAccount
             {
                 AccountCode = reader["AccountCode"].ToString(),
@@ -47,8 +48,8 @@ public class MSSqlDatabase : IDatabase
                 LocalCurrencyCode = reader["LocalCurrencyCode"].ToString(),
                 MarketValue = reader["MarketValue"] as decimal?,
                 NumberOfShare = reader["NumberOfShare"] as decimal?,
-                SecurityId = Convert.ToInt32(reader["SecurityId"]),
-                SecurityName = reader["SecurityName"].ToString(),
+                SecurityId = securityId,
+                SecurityName = reader["SecurityName"]?.ToString() ?? "",
                 BondType = reader["BondType"].ToString(),
                 HoldingType = reader["HoldingType"].ToString(),
                 Percentage = reader["Percentage"] as decimal?,

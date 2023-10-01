@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {}
+    "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
+    "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\mathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mathi\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\obj\\",
+        "projectPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\ahoadmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahoadmin\\source\\repos\\Master_Golf_Udviklingsprojekt\\Golf_TSDB_MSSQL\\Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mathi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ahoadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
         }
       }
     }

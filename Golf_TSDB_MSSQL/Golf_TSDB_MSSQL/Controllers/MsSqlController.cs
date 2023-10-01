@@ -15,23 +15,8 @@ public class MsSqlController : ControllerBase
         this.mSSqlDatabase = mSSqlDatabase;
     }
 
-    [HttpGet(Name = "Results1")]
-    public IActionResult Results()
-    {
-        var sw = new Stopwatch();
-        sw.Start();
-
-        var startDate = new DateTime(2014, 12, 1);
-
-        // TODO: Hent resultater
-        var results = mSSqlDatabase.GetHoldings(startDate, startDate.AddMonths(1), "1080");
-        
-        var ellapsed = sw.ElapsedMilliseconds;
-        return Content(ellapsed.ToString());
-    }
-
     [HttpGet("{from}/{to}/{accountCode}", Name = "MSSqlHoldings")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode)
+    public async Task<IActionResult> Results45(DateTime from, DateTime to, string accountCode)
     {
         var sw = new Stopwatch();
         sw.Start();
@@ -44,7 +29,7 @@ public class MsSqlController : ControllerBase
     }
 
     [HttpGet("{from}/{to}/{accountCode}/{securityId}", Name = "MSSqlAverage")]
-    public IActionResult Results45(DateTime from, DateTime to, string accountCode, int securityId)
+    public async Task<IActionResult> Results55(DateTime from, DateTime to, string accountCode, int securityId)
     {
         var sw = new Stopwatch();
         sw.Start();
