@@ -84,7 +84,9 @@ public class TestRunner
         }
 
         Console.WriteLine($"Run all tests for {_dbToTest.GetType().FullName}, time: {_sw.ElapsedMilliseconds}ms");
+        var ellapsed = _sw.ElapsedMilliseconds;
+        _sw.Reset();
 
-        return _sw.ElapsedMilliseconds;
+        return ellapsed;
     }
 }
