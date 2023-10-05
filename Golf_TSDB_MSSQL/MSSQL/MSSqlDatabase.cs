@@ -81,4 +81,69 @@ public class MSSqlDatabase : IDatabase
 
         return result == DBNull.Value ? 0 : Convert.ToDecimal(result);
     }
+
+    public async Task<List<HoldingsInAccount>> GetHoldingsLowerThan30DayAvg(DateTime from, DateTime to, string accountCode, int SecurityId)
+    {
+        var holdings = new List<HoldingsInAccount>();
+
+        using SqlConnection conn = new SqlConnection(_connectionString);
+
+        string s = @"
+WITH ValuationAverages AS (
+    SELECT 
+        SecurityId, 
+        NavDate,
+        ValuationPrice,
+        AVG(ValuationPrice) OVER (
+            PARTITION BY SecurityId 
+            ORDER BY NavDate
+            ROWS BETWEEN 30 PRECEDING AND 1 PRECEDING
+        ) AS AverageValuationPriceLast30Days
+    FROM 
+        dbo.HoldingsInAccounts
+    WHERE
+      SecurityId = @securityId
+      AND NavDate BETWEEN @from AND @to 
+)
+
+SELECT 
+    SecurityId, 
+    NavDate,
+    ValuationPrice,
+    AverageValuationPriceLast30Days
+FROM 
+    ValuationAverages
+WHERE 
+    ValuationPrice < AverageValuationPriceLast30Days
+ORDER BY 
+    SecurityId, 
+    NavDate;
+";
+
+
+        using SqlCommand cmd = new SqlCommand(s, conn);
+
+        cmd.Parameters.AddWithValue("@from", from);
+        cmd.Parameters.AddWithValue("@to", to);
+        cmd.Parameters.AddWithValue("@accountCode", accountCode);
+        cmd.Parameters.AddWithValue("@securityId", SecurityId);
+
+
+        await conn.OpenAsync();
+
+        using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            var securityId = reader["SecurityId"] == DBNull.Value ? -1 : Convert.ToInt32(reader["SecurityId"] ?? -1);
+            holdings.Add(new HoldingsInAccount
+            {
+                NavDate = Convert.ToDateTime(reader["NavDate"]),
+                SecurityId = securityId,
+                ValuationPrice = reader["ValuationPrice"] as decimal?
+            });
+        }
+
+        return holdings;
+    }
 }

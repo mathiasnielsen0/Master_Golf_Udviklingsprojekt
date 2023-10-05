@@ -16,7 +16,7 @@ public class TestRunner
     private readonly DateTime start;
     private readonly DateTime end;
 
-    public TestRunner(IDatabase dbToTest) 
+    public TestRunner(IDatabase dbToTest)
     {
         _dbToTest = dbToTest;
         _sw = new Stopwatch();
@@ -52,12 +52,12 @@ public class TestRunner
         {
             DbType = _dbToTest.GetType().FullName,
         };
-        
-        for (int i = 0; i < accountCodes.Length; i++) 
+
+        for (int i = 0; i < accountCodes.Length; i++)
         {
-            Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {i} / {accountCodes.Length}. Ellapsed - Holdings:{rm.HoldingsMs}ms, Avg: {rm.HoldingsMs}");
+            Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {i} / {accountCodes.Length}. Ellapsed - Holdings:{rm.HoldingsMs}ms, Avg: {rm.HoldingsMs}, LT30DA: {rm.LessThan30DAvgMs}");
             _sw.Restart();
-            await _dbToTest.GetHoldings( start, end, accountCodes[i]);
+            await _dbToTest.GetHoldings(start, end, accountCodes[i]);
             rm.HoldingsMs += _sw.ElapsedMilliseconds;
 
             foreach (var sec in securityIds)
@@ -66,20 +66,28 @@ public class TestRunner
                 await _dbToTest.GetAvgPrices(start, end, accountCodes[i], sec);
                 rm.AvgMs += _sw.ElapsedMilliseconds;
             }
+
+            foreach (var sec in securityIds)
+            {
+                _sw.Restart();
+                await _dbToTest.GetHoldingsLowerThan30DayAvg(start, end, accountCodes[i], sec);
+                rm.LessThan30DAvgMs += _sw.ElapsedMilliseconds;
+            }
+
         }
 
         return rm;
-        
 
-        
-        
+
+
+
         DateTime startDate = DateTime.ParseExact("2012-01-01", "yyyy-MM-dd", CultureInfo.InvariantCulture);
         DateTime endDate = DateTime.ParseExact("2012-06-30", "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
         var monthsToRunPerLoop = 7;
         var totalRuns = Math.Ceiling((decimal)accountCodes.Count() * (((endDate.Year - startDate.Year) * 12) + monthsToRunPerLoop + endDate.Month - startDate.Month) / monthsToRunPerLoop) - 4;
         int runCounter = 0;
-        
+
         while (startDate <= endDate)
         {
             DateTime to = startDate.AddMonths(monthsToRunPerLoop).AddDays(-1);
@@ -88,9 +96,9 @@ public class TestRunner
             {
                 var startEllapsed = _sw.ElapsedMilliseconds;
                 _sw.Start();
-                await _dbToTest.GetHoldings( startDate, to, accountCode);
+                await _dbToTest.GetHoldings(startDate, to, accountCode);
                 _sw.Stop();
-                
+
                 Console.WriteLine($"Run GetHoldings with {startDate.ToShortDateString()} - {to.ToShortDateString()}, Acc. {accountCode}. Ellapsed {_sw.ElapsedMilliseconds}ms");
 
                 foreach (var securityId in securityIds)
@@ -98,13 +106,13 @@ public class TestRunner
                     _sw.Start();
                     await _dbToTest.GetAvgPrices(startDate, to, accountCode, securityId);
                     _sw.Stop();
-                    
+
                     Console.WriteLine($"Run GetAvgPrices with {startDate.ToShortDateString()} - {to.ToShortDateString()}, Acc. {accountCode}, secId. {securityId}. Ellapsed {_sw.ElapsedMilliseconds}ms");
                 }
 
                 Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {runCounter++} / {totalRuns}. Ellapsed: {_sw.ElapsedMilliseconds - startEllapsed}ms");
             }
-            
+
             startDate = startDate.AddMonths(monthsToRunPerLoop).AddDays(-1);
         }
 

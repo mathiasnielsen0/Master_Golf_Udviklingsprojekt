@@ -68,4 +68,9 @@ public class TimeScaleDb : IDatabase
 
         return result == DBNull.Value ? 0 : Convert.ToDecimal(result);
     }
+
+    public Task<List<HoldingsInAccount>> GetHoldingsLowerThan30DayAvg(DateTime from, DateTime to, string accountCode, int SecurityId)
+    {
+        throw new NotImplementedException();
+    }
 }

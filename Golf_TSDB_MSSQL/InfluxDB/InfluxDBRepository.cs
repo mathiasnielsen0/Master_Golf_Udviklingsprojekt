@@ -21,9 +21,9 @@ public class InfluxDBRepository : IInfluxDBRepository, IDatabase
     {
         // Insert API Token here:
         _client = new InfluxDBClient("http://localhost:8086",
-            "23yazajVUf_Qk4jfQ4gIwejs6mbby5JcsPArvpjKmqfWlIGRhUvDYFoNVCuM_KWTJciz9QyDltj6Hxw1ErF_8A==");
+            "EhG6j4anYk9oK4am6HwXNIT-WSAIWni7-AvGnziRZ9jXi621gU5buZR9L7W0AhHj82HcGINrjzm_edmqzsaFEg==");
         bucket = "Holdings";
-        org = "Sparinvest"; 
+        org = "Sparinvest";
     }
 
     public InfluxDBRepository(string url, string token)
@@ -306,10 +306,40 @@ public class InfluxDBRepository : IInfluxDBRepository, IDatabase
 
     public async Task<decimal> GetAvgPrices(DateTime from, DateTime to, string accountCode, int SecurityId)
     {
+        var flux = $@"import ""experimental""
+        from(bucket:""{bucket}"")
+        |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+        |> filter(fn: (r) => 
+            r._measurement == ""holdings_in_account"" 
+            and r.AccountCode == ""{accountCode}"" 
+            and r.SecurityId == ""{SecurityId}""
+            and r._field == ""ValuationPrice"") 
+        |> experimental.mean()";
+
+        System.IO.File.WriteAllText(@"last_flux.txt", flux);
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+        if (tables != null && tables.Count > 0 && tables[0].Records.Count > 0)
+        {
+            var record = tables[0].Records[0];
+            var valueField = record.GetValue();
+            if (valueField != null)
+            {
+                return Convert.ToDecimal(valueField);
+            }
+        }
+
+        return 0m;
+    }
+    public async Task<decimal> GetAvgPrices_old(DateTime from, DateTime to, string accountCode, int SecurityId)
+    {
         var flux = $@"from(bucket:""{bucket}"")
         |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
-        |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"" and r.SecurityId == ""{SecurityId}"")
+        |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"" and r.SecurityId == ""{SecurityId}"" and exists r.ValuationPrice)
         |> mean(column: ""ValuationPrice"")";
+
+        System.IO.File.WriteAllText(@"last_flux.txt", flux);
 
         var tables = await _client.GetQueryApi().QueryAsync(flux, org);
 
@@ -319,6 +349,71 @@ public class InfluxDBRepository : IInfluxDBRepository, IDatabase
         }
 
         return 0m;
+    }
+
+    public async Task<List<HoldingsInAccount>> GetHoldingsLowerThan30DayAvg(DateTime from, DateTime to, string accountCode, int SecurityId)
+    {
+        var fromPlus30 = from.AddDays(30);
+
+        var fluxo = $@"from(bucket:""{bucket}"")
+        |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+        |> filter(fn: (r) => r._measurement == ""holdings_in_account"" and r.AccountCode == ""{accountCode}"")
+        |> pivot(rowKey:[""_time""], columnKey: [""_field""], valueColumn: ""_value"")";
+
+        var flux = $@"avgData = from(bucket:""{bucket}"")
+|> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+  |> filter(fn: (r) => 
+      r._measurement == ""holdings_in_account"" 
+      and r.SecurityId == ""{SecurityId}""
+      and r._field == ""ValuationPrice"")
+  |> movingAverage(n: 30)
+
+rawData = from(bucket:""Holdings"")
+|> range(start: {fromPlus30:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+  |> filter(fn: (r) => 
+      r._measurement == ""holdings_in_account"" 
+      and r.SecurityId == ""{SecurityId}""
+      and r._field == ""ValuationPrice"")
+
+joinedData = join(
+  tables: {{avg: avgData, raw: rawData}},
+  on: [""_time"", ""_measurement"", ""AccountCode"", ""SecurityId""]
+)
+  
+joinedData
+  |> map(fn: (r) => ({{ r with diff: r._value_raw - r._value_avg }}))
+  |> filter(fn: (r) => r.diff < 0)
+  
+";
+        var resultList = new List<HoldingsInAccount>();
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+
+        if (tables != null && tables.Count > 0)
+        {
+            foreach (var record in tables[0].Records)
+            {
+                var holding = new HoldingsInAccount
+                {
+                    AccountCode = record.GetValueByKey("AccountCode")?.ToString(),
+                    NavDate = Convert.ToDateTime(record.GetTime().ToString()), // Assuming NavDate is the timestamp
+                    LocalCurrencyCode = record.GetValueByKey("LocalCurrencyCode")?.ToString(),
+                    MarketValue = Convert.ToDecimal(record.GetValueByKey("MarketValue")),
+                    NumberOfShare = Convert.ToDecimal(record.GetValueByKey("NumberOfShare")),
+                    SecurityName = record.GetValueByKey("SecurityName")?.ToString(),
+                    SecurityId = Convert.ToInt32(record.GetValueByKey("SecurityId")?.ToString()),
+                    BondType = record.GetValueByKey("BondType")?.ToString(),
+                    HoldingType = record.GetValueByKey("HoldingType")?.ToString(),
+                    ValuationPrice = Convert.ToDecimal(record.GetValueByKey("_value_raw")),
+                    Percentage = Convert.ToDecimal(record.GetValueByKey("Percentage"))
+                };
+
+                resultList.Add(holding);
+            }
+        }
+
+        return resultList;
     }
 
 }
