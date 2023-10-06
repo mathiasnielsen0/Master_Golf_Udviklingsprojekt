@@ -306,6 +306,33 @@ public class InfluxDBRepository : IInfluxDBRepository, IDatabase
 
     public async Task<decimal> GetAvgPrices(DateTime from, DateTime to, string accountCode, int SecurityId)
     {
+        var flux = $@"from(bucket:""{bucket}"")
+        |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+        |> filter(fn: (r) => 
+            r._measurement == ""holdings_in_account"" 
+            and r.AccountCode == ""{accountCode}"" 
+            and r.SecurityId == ""{SecurityId}""
+            and r._field == ""ValuationPrice"") 
+        |> mean()";
+
+        System.IO.File.WriteAllText(@"last_flux.txt", flux);
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+        if (tables != null && tables.Count > 0 && tables[0].Records.Count > 0)
+        {
+            var record = tables[0].Records[0];
+            var valueField = record.GetValue();
+            if (valueField != null)
+            {
+                return Convert.ToDecimal(valueField);
+            }
+        }
+
+        return 0m;
+    }
+    public async Task<decimal> GetAvgPrices_old2(DateTime from, DateTime to, string accountCode, int SecurityId)
+    {
         var flux = $@"import ""experimental""
         from(bucket:""{bucket}"")
         |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
@@ -332,6 +359,8 @@ public class InfluxDBRepository : IInfluxDBRepository, IDatabase
 
         return 0m;
     }
+
+
     public async Task<decimal> GetAvgPrices_old(DateTime from, DateTime to, string accountCode, int SecurityId)
     {
         var flux = $@"from(bucket:""{bucket}"")
@@ -416,4 +445,43 @@ joinedData
         return resultList;
     }
 
+    public async Task<List<HighAndLow>> GetHighestAndLowestPrices(DateTime from, DateTime to, string accountCode)
+    {
+        var flux = $@"from(bucket:""{bucket}"")
+        |> range(start: {from:yyyy-MM-ddTHH:mm:ssZ}, stop: {to:yyyy-MM-ddTHH:mm:ssZ})
+          |> filter(fn: (r) => 
+      r._measurement == ""holdings_in_account"" 
+      and r.AccountCode == ""{accountCode}""
+          and r._field == ""ValuationPrice"")
+  |> group(columns: [""SecurityId""])
+  |> reduce(
+      identity: {{maxValuationPrice: 0.0, minValuationPrice: 9999999999.9}},
+      fn: (r, accumulator) => ({{
+          maxValuationPrice: if r._value > accumulator.maxValuationPrice then r._value else accumulator.maxValuationPrice,
+          minValuationPrice: if r._value < accumulator.minValuationPrice then r._value else accumulator.minValuationPrice
+      }})
+  )
+";
+        var resultList = new List<HighAndLow>();
+
+        var tables = await _client.GetQueryApi().QueryAsync(flux, org);
+
+
+        if (tables != null && tables.Count > 0)
+        {
+            foreach (var record in tables[0].Records)
+            {
+                var holding = new HighAndLow
+                {
+                    SecurityId = Convert.ToInt32(record.GetValueByKey("SecurityId")?.ToString()),
+                    HighestPrice = Convert.ToDecimal(record.GetValueByKey("maxValuationPrice")?.ToString()),
+                    LowestPrice = Convert.ToDecimal(record.GetValueByKey("minValuationPrice")?.ToString())
+                };
+
+                resultList.Add(holding);
+            }
+        }
+
+        return resultList;
+    }
 }

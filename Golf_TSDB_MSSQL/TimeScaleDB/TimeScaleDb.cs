@@ -73,4 +73,9 @@ public class TimeScaleDb : IDatabase
     {
         throw new NotImplementedException();
     }
+
+    public Task<List<HighAndLow>> GetHighestAndLowestPrices(DateTime from, DateTime to, string accountCode)
+    {
+        throw new NotImplementedException();
+    }
 }

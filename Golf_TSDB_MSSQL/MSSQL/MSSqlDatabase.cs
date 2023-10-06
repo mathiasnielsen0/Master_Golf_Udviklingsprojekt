@@ -146,4 +146,48 @@ ORDER BY
 
         return holdings;
     }
+
+    public async Task<List<HighAndLow>> GetHighestAndLowestPrices(DateTime from, DateTime to, string accountCode)
+    {
+        var holdings = new List<HighAndLow>();
+
+        using SqlConnection conn = new SqlConnection(_connectionString);
+
+        string s = @"
+SELECT SecurityId, MAX(ValuationPrice) as MaxValuationPrice, MIN(ValuationPrice) as MinValuationPrice
+FROM HoldingsInAccountsT
+WHERE NavDate BETWEEN @from AND @to 
+  AND AccountCode = @accountCode
+GROUP BY SecurityId;
+";
+
+
+        using SqlCommand cmd = new SqlCommand(s, conn);
+
+        cmd.Parameters.AddWithValue("@from", from);
+        cmd.Parameters.AddWithValue("@to", to);
+        cmd.Parameters.AddWithValue("@accountCode", accountCode);
+
+
+        await conn.OpenAsync();
+
+        using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            var securityId = reader["SecurityId"] == DBNull.Value ? -1 : Convert.ToInt32(reader["SecurityId"] ?? -1);
+            try
+            {
+                holdings.Add(new HighAndLow
+                {
+                    LowestPrice = Convert.ToDecimal(reader["MinValuationPrice"]),
+                    HighestPrice = Convert.ToDecimal(reader["MaxValuationPrice"]),
+                    SecurityId = securityId
+                });
+            }
+            catch { }
+        }
+
+        return holdings;
+    }
 }

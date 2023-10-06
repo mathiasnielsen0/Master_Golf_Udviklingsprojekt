@@ -11,4 +11,6 @@ public interface IDatabase
 
     public Task<List<HoldingsInAccount>> GetHoldingsLowerThan30DayAvg(DateTime from, DateTime to, string accountCode, int SecurityId);
 
+    public Task<List<HighAndLow>> GetHighestAndLowestPrices(DateTime from, DateTime to, string accountCode);
+
 }
