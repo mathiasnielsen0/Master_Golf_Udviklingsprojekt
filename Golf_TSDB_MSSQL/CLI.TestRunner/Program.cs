@@ -21,7 +21,7 @@ var results = new List<ResultModel>();
 
 for (int i = 0; i < numOfRuns; i++)
 {
-    Console.WriteLine($"RUNNING CHOSEN DATABASES: {i}/{numOfRuns}");
+    Console.WriteLine($"RUNNING CHOSEN DATABASES: {i+1}/{numOfRuns}");
     foreach (var db in dbsToTest)
         results.Add(await new TestRunner(db).RunTests());
 }
@@ -36,11 +36,11 @@ void PrintFiles(List<ResultModel> results)
     {
         var csvLines = new List<string>();
         csvLines.Add(dbResults.Key);
-        csvLines.Add("GetHoldings;GetAvgValuationPrice");
+        csvLines.Add("GetHoldings;GetAvgValuationPrice;GetLessThan30DAvg;GetHighAndLow");
         var dbRes = dbResults.ToList();
-        
+
         foreach (var r in dbRes)
-            csvLines.Add($"{r.HoldingsMs};{r.AvgMs}");
+            csvLines.Add($"{r.HoldingsMs};{r.AvgMs};{r.LessThan30DAvgMs};{r.HighLowMs}");
 
         File.WriteAllLines($"Testrun_{dbResults.Key}_{DateTime.Now.ToFileTime()}.csv", csvLines);
     }

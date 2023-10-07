@@ -55,7 +55,6 @@ public class TestRunner
 
         for (int i = 0; i < accountCodes.Length; i++)
         {
-            Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {i} / {accountCodes.Length}. Ellapsed - Holdings:{rm.HoldingsMs}ms, Avg: {rm.HoldingsMs}, LT30DA: {rm.LessThan30DAvgMs}");
             _sw.Restart();
             await _dbToTest.GetHoldings(start, end, accountCodes[i]);
             rm.HoldingsMs += _sw.ElapsedMilliseconds;
@@ -74,6 +73,11 @@ public class TestRunner
                 rm.LessThan30DAvgMs += _sw.ElapsedMilliseconds;
             }
 
+            _sw.Restart();
+            await _dbToTest.GetHighestAndLowestPrices(start, end, accountCodes[i]);
+            rm.HighLowMs += _sw.ElapsedMilliseconds;
+
+            Console.WriteLine($"{_dbToTest.GetType().FullName} : Run {i + 1} / {accountCodes.Length}. Ellapsed - Holdings:{rm.HoldingsMs}ms, Avg: {rm.AvgMs}, LT30DA: {rm.LessThan30DAvgMs}, HighLow: {rm.HighLowMs}");
         }
 
         return rm;
