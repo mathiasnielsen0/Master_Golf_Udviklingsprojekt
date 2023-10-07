@@ -9,6 +9,7 @@
       "TimeScaleDB/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
+          "Npgsql": "7.0.4",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {

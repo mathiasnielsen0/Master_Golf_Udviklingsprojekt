@@ -69,13 +69,114 @@ public class TimeScaleDb : IDatabase
         return result == DBNull.Value ? 0 : Convert.ToDecimal(result);
     }
 
-    public Task<List<HoldingsInAccount>> GetHoldingsLowerThan30DayAvg(DateTime from, DateTime to, string accountCode, int SecurityId)
+
+    public async Task<List<HoldingsInAccount>> GetHoldingsLowerThan30DayAvg(DateTime from, DateTime to, string accountCode, int SecurityId)
     {
-        throw new NotImplementedException();
+        var holdings = new List<HoldingsInAccount>();
+
+        using NpgsqlConnection conn = new NpgsqlConnection(_connectionString);
+
+        string s = @"
+            WITH ValuationAverages AS (
+                SELECT 
+                    securityid, 
+                    navdate,
+                    valuationprice,
+                    AVG(valuationprice) OVER (
+                        PARTITION BY securityid 
+                        ORDER BY navdate
+                        ROWS BETWEEN 30 PRECEDING AND 1 PRECEDING
+                    ) AS AverageValuationPriceLast30Days
+                FROM 
+                    holdings_in_accounts_t
+                WHERE
+                  securityid = @securityId
+                  AND accountcode = @accountCode 
+                  AND navdate BETWEEN @from AND @to 
+            )
+
+            SELECT 
+                securityid, 
+                navdate,
+                valuationprice,
+                averagevaluationpricelast30days
+            FROM 
+                ValuationAverages
+            WHERE 
+                valuationprice < AverageValuationPriceLast30Days
+            ORDER BY 
+                securityid, 
+                navdate;
+            ";
+
+
+        using NpgsqlCommand cmd = new NpgsqlCommand(s, conn);
+
+        cmd.Parameters.AddWithValue("@from", from);
+        cmd.Parameters.AddWithValue("@to", to);
+        cmd.Parameters.AddWithValue("@accountCode", accountCode);
+        cmd.Parameters.AddWithValue("@securityId", SecurityId);
+
+
+        await conn.OpenAsync();
+
+        using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            var securityId = reader["securityid"] == DBNull.Value ? -1 : Convert.ToInt32(reader["securityid"] ?? -1);
+            holdings.Add(new HoldingsInAccount
+            {
+                NavDate = Convert.ToDateTime(reader["navdate"]),
+                SecurityId = securityId,
+                ValuationPrice = reader["valuationprice"] as decimal?
+            });
+        }
+
+        return holdings;
     }
 
-    public Task<List<HighAndLow>> GetHighestAndLowestPrices(DateTime from, DateTime to, string accountCode)
+    public async Task<List<HighAndLow>> GetHighestAndLowestPrices(DateTime from, DateTime to, string accountCode)
     {
-        throw new NotImplementedException();
+        var holdings = new List<HighAndLow>();
+
+        using NpgsqlConnection conn = new NpgsqlConnection(_connectionString);
+
+        string s = @"
+            SELECT securityid, MAX(valuationprice) as MaxValuationPrice, MIN(valuationprice) as MinValuationPrice
+            FROM holdings_in_accounts_t
+            WHERE navdate BETWEEN @from AND @to 
+              AND accountcode = @accountCode
+            GROUP BY securityid;
+            ";
+
+
+        using NpgsqlCommand cmd = new NpgsqlCommand(s, conn);
+
+        cmd.Parameters.AddWithValue("@from", from);
+        cmd.Parameters.AddWithValue("@to", to);
+        cmd.Parameters.AddWithValue("@accountCode", accountCode);
+
+
+        await conn.OpenAsync();
+
+        using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            var securityId = reader["SecurityId"] == DBNull.Value ? -1 : Convert.ToInt32(reader["SecurityId"] ?? -1);
+            try
+            {
+                holdings.Add(new HighAndLow
+                {
+                    LowestPrice = Convert.ToDecimal(reader["MinValuationPrice"]),
+                    HighestPrice = Convert.ToDecimal(reader["MaxValuationPrice"]),
+                    SecurityId = securityId
+                });
+            }
+            catch { }
+        }
+
+        return holdings;
     }
 }

@@ -100,9 +100,10 @@ WITH ValuationAverages AS (
             ROWS BETWEEN 30 PRECEDING AND 1 PRECEDING
         ) AS AverageValuationPriceLast30Days
     FROM 
-        dbo.HoldingsInAccounts
+        dbo.HoldingsInAccountsT
     WHERE
       SecurityId = @securityId
+      AND AccountCode = @accountCode 
       AND NavDate BETWEEN @from AND @to 
 )
 
