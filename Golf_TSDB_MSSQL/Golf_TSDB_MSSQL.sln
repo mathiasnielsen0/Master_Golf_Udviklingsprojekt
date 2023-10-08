@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Golf_TSDB_MSSQL", "Golf_TSDB_MSSQL\Golf_TSDB_MSSQL.csproj", "{F84D7E82-9A2C-49B9-9179-B53B024AD15A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{78E56E02-3AD0-49AE-A748-31C7357F3046}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSSQL", "MSSQL\MSSQL.csproj", "{94129CB9-36F3-442D-B596-297DC1F6C080}"
@@ -30,10 +28,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F84D7E82-9A2C-49B9-9179-B53B024AD15A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{78E56E02-3AD0-49AE-A748-31C7357F3046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78E56E02-3AD0-49AE-A748-31C7357F3046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78E56E02-3AD0-49AE-A748-31C7357F3046}.Release|Any CPU.ActiveCfg = Release|Any CPU

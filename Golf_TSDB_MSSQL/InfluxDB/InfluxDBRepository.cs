@@ -21,7 +21,7 @@ public class InfluxDBRepository : IInfluxDBRepository, IDatabase
     {
         // Insert API Token here:
         _client = new InfluxDBClient("http://localhost:8086",
-            "EhG6j4anYk9oK4am6HwXNIT-WSAIWni7-AvGnziRZ9jXi621gU5buZR9L7W0AhHj82HcGINrjzm_edmqzsaFEg==");
+            "cQIeN-6MDWn3lmpGj8_QcObXlhEeIzwcUprcht0I5AyI31iTnYcKRxn5pqqSJQVkGh_z_tcsyTw3XJWOMOPj_w==");
         bucket = "Holdings";
         org = "Sparinvest";
     }
